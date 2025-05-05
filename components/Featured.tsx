@@ -2,7 +2,7 @@ import HeadingTitle from "@/common/HeadingTitle"
 import { prisma } from "@/lib/prisma"
 import Product from "./Product";
 
-const Recommanded = async() => {
+const Featured = async() => {
     const prods = await prisma.product.findMany({
       orderBy: {
         createdAt: "desc" // take the last created prods 
@@ -25,4 +25,4 @@ const Recommanded = async() => {
   )
 }
 
-export default Recommanded
+export default Featured

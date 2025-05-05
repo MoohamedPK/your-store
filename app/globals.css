@@ -8,11 +8,16 @@
         @apply px-15 py-6
     }
 
-    .orange-bg {
-        background-color: #ba5438;
+    .main-bg {
+        @apply bg-radial-[at_25%_100%] from-blue-900 to-zinc-900 to-75%
     }
-
-    .orange-text {
-        color: #c72a00;
+    .secondary-bg {
+        @apply bg-radial-[at_100%_100%] from-blue-600 to-black to-100%
+    }
+    .button-hover {
+        @apply hover:scale-95 transition-transform duration-300 hover:opacity-90
+    }
+    .shadow {
+        @apply shadow-2xl shadow-blue-800
     }
 }
