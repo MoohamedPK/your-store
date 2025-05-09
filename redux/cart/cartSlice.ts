@@ -3,7 +3,6 @@ import {cartProps} from "@/lib/definitions"
 
 const initialState:cartProps = {
     items: {},
-    productInfo: []
 }
 
 const cartSlice = createSlice({
@@ -18,7 +17,8 @@ const cartSlice = createSlice({
             } else {
                 state.items[id] = 1
             }
-        }
+        },
+
     }
 })
 

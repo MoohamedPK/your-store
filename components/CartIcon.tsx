@@ -1,13 +1,12 @@
 "use client"
-import { RootState } from "@/redux/store";
 import { LucideShoppingBag } from "lucide-react";
 import Link from "next/link";
-import { useSelector } from "react-redux";
-export const CartIcon = () => {
+import useQuantity from "@/common/totalQuantity";
 
-    const items = useSelector((state:RootState )=>  state.cart.items)
-    const totalQuantity = Object.values(items).reduce((sum, quantity) => sum + quantity , 0)
+export const CartIcon = () => {
     
+    const {totalQuantity} = useQuantity()
+
     return (
         <Link href={"/cart"} className="cursor-pointer relative">
             <LucideShoppingBag/>

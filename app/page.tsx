@@ -3,6 +3,7 @@ import Recommanded from "@/components/Featured"
 
 const Home = async () => {
 
+
   return (
     <main>
       <Hero/>

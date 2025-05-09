@@ -1,7 +1,13 @@
+// import CartPage from "@/components/CartPage"
+import CartText from "@/components/CartText"
 
 const Cart = () => {
   return (
-    <div>page</div>
+    <div>
+      <CartText/>
+
+      {/* <CartPage/> */}
+    </div>
   )
 }
 

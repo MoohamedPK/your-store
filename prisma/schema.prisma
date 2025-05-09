@@ -7,37 +7,73 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id           String         @id @default(cuid())
+  name         String
+  email        String         @unique
+  password     String
+  image        String?
+  phone        String?
+  streetAdress String?
+  city         String?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  orders       OrderProduct[]
+}
+
 model Product {
-  id          Int      @id @default(autoincrement())
+  id          String         @id @default(cuid())
   name        String
   description String
   price       Float
   image       String // store Cloudinary URL here
   order       Int
   sizes       Size[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  Category    Category? @relation(fields: [categoryId], references: [id])
-  categoryId  Int?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  Category    Category       @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  orders      OrderProduct[]
+}
+
+model Order {
+  id            String         @id @default(cuid())
+  paid          Boolean
+  subtotalPrice Float
+  deliveryFee   Float
+  totalPrice    Float
+  userEmail     String
+  phone         String
+  streetAdress  String
+  city          String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  products      OrderProduct[]
+}
+
+model OrderProduct {
+  id        String   @id @default(cuid())
+  quantity  Int
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   String
+  User      User?    @relation(fields: [userId], references: [id]) // optional in the case of the user is a guest
+  userId    String?
+  Product   Product @relation(fields: [productId], references: [id])
+  productId String
 }
 
 model Category {
-  id       Int          @id @default(autoincrement())
-  name     Categories[]
+  id       String    @id @default(cuid())
+  name     String
   products Product[]
 }
 
 model Size {
-  id        Int          @id @default(autoincrement())
+  id        String       @id @default(cuid())
   name      ProductSizes
   price     Float
-  product   Product?      @relation(fields: [productId], references: [id])
-  productId Int?
-}
-
-enum Categories {
-  accessories
-  digital
+  product   Product      @relation(fields: [productId], references: [id])
+  productId String
 }
 
 enum ProductSizes {
