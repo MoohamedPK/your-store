@@ -2,8 +2,7 @@ import type { Product } from "@prisma/client"
 import Image from "next/image";
 import Link from "next/link";
 import { currancyFormatter } from "@/lib/formatters";
-import AddToCartBtn from "@/common/AddToCartBtn";
-
+import AddToCartBtn from "@/components/common/AddToCartBtn";
 
 const Product = ({product}: {product: Product}) => {
     const {id, name, description, price, image} = product;

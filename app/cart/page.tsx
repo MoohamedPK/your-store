@@ -1,12 +1,13 @@
-// import CartPage from "@/components/CartPage"
-import CartText from "@/components/CartText"
+import CartText from "@/components/common/CartText"
+import CartPage from "@/components/CartPage"
 
-const Cart = () => {
+const Cart = async () => {
+
   return (
     <div>
       <CartText/>
-
-      {/* <CartPage/> */}
+        
+      <CartPage/>
     </div>
   )
 }

@@ -45,6 +45,10 @@ export const cartProducts = (ids: string[]) => {
       id: {
         in: ids
       }
+    },
+    include: {
+      sizes: true,
+      orders: true,
     }
   })
 }

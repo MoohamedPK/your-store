@@ -1,5 +1,5 @@
 "use client"
-import useQuantity from "@/common/totalQuantity"
+import useQuantity from "@/components/common/totalQuantity"
 const CartText = () => {
 
     const {totalQuantity} = useQuantity()

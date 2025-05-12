@@ -1,7 +1,7 @@
 "use client"
 import { LucideShoppingBag } from "lucide-react";
 import Link from "next/link";
-import useQuantity from "@/common/totalQuantity";
+import useQuantity from "@/components/common/totalQuantity";
 
 export const CartIcon = () => {
     

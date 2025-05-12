@@ -1,5 +1,5 @@
-import HeadingTitle from "@/common/HeadingTitle"
-import Product from "./Product";
+import HeadingTitle from "@/components/common/HeadingTitle"
+import Product from "./common/Product";
 import { featuredProducts } from "@/server/db/products";
 
 const Featured = async() => {

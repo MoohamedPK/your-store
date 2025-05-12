@@ -1,4 +1,4 @@
-import AddToCartBtn from "@/common/AddToCartBtn"
+import AddToCartBtn from "@/components/common/AddToCartBtn"
 import { currancyFormatter } from "@/lib/formatters"
 import { productById } from "@/server/db/products"
 import Image from "next/image"

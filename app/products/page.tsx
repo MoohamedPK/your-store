@@ -1,5 +1,5 @@
 import Category from "@/components/Category";
-import Product from "@/components/Product";
+import Product from "@/components/common/Product";
 import { allProducts } from "@/server/db/products";
 
 const Products = async ({
@@ -9,8 +9,6 @@ const Products = async ({
 }) => {
   const params = await searchParams;
   const category = params?.category;
-  console.log('from page',category)
-
   const products = await allProducts(category);
 
   return (
