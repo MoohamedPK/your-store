@@ -8,17 +8,15 @@ datasource db {
 }
 
 model User {
-  id           String         @id @default(cuid())
-  name         String
-  email        String         @unique
-  password     String
-  image        String?
-  phone        String?
-  streetAdress String?
-  city         String?
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  orders       OrderProduct[]
+  id        String         @id @default(cuid())
+  name      String
+  email     String         @unique
+  password  String
+  image     String?
+  role      String         @default("user") // can be "admin" or "user"
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  orders    OrderProduct[]
 }
 
 model Product {
@@ -52,11 +50,11 @@ model Order {
 }
 
 model OrderProduct {
-  id        String   @id @default(cuid())
+  id        String  @id @default(cuid())
   quantity  Int
-  order     Order    @relation(fields: [orderId], references: [id])
+  order     Order   @relation(fields: [orderId], references: [id])
   orderId   String
-  User      User?    @relation(fields: [userId], references: [id]) // optional in the case of the user is a guest
+  User      User?   @relation(fields: [userId], references: [id]) // optional in the case of the user is a guest
   userId    String?
   Product   Product @relation(fields: [productId], references: [id])
   productId String

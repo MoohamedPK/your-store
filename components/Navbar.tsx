@@ -12,8 +12,8 @@ const Navbar = () => {
             <ul className="space-x-8 font-semibold">
                 <Link href={'/'}>Home</Link>
                 <Link href={'/products'}>Products</Link>
-                <Link href={'/'}>Accessories</Link>
-                <Link href={'/'}>Digital</Link>
+                <Link href={'/'}>About</Link>
+                <Link href={'/'}>Contact</Link>
             </ul>
             
             <div className="flex justify-between items-center space-x-5 font-semibold">
