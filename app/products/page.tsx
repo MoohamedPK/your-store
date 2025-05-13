@@ -1,12 +1,14 @@
 import Category from "@/components/Category";
 import Product from "@/components/common/Product";
 import { allProducts } from "@/server/db/products";
+import { auth } from "@/auth";
 
 const Products = async ({
   searchParams,
 }: {
   searchParams?: Promise<{ category?: string }>;
 }) => {
+
   const params = await searchParams;
   const category = params?.category;
   const products = await allProducts(category);

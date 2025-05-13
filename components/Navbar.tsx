@@ -1,8 +1,13 @@
 import Link from "next/link"
-import { User2Icon } from "lucide-react"
+import { User } from "lucide-react"
 import { CartIcon } from "./CartIcon"
+import { auth } from "@/auth"
+// import Image from "next/image"
 
-const Navbar = () => {
+const Navbar = async () => {
+
+    const session = await auth()
+
   return (
         <nav className="container flex justify-between items-center pb-6 bg-zinc-900 text-white sticky top-0 z-90">
             <div className="logo">
@@ -24,7 +29,22 @@ const Navbar = () => {
 
                     {/* user */}
                     <div className="cursor-pointer">
-                        <User2Icon/>
+                        {session?.user ? (
+                            <div>
+                                {session?.user ? (
+                                    <div><User size={23}/></div>
+                                ) : (
+                                    <div>
+                                        {/* <Image src={session?.user.image} alt='profile' width={20} height={20}/> */}
+                                        profile
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <Link href={'/login'}>
+                                <p>Login</p>
+                            </Link>
+                        )}
                     </div>
                 </div>
             </div>

@@ -28,7 +28,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
             },
 
             async authorize(credentials: Partial<Record<"email" | "password", unknown>>) {
-
+                console.log("authorize called with:", credentials);
                 if (typeof credentials.email !== "string" || typeof credentials.password !== "string") {
                     throw new Error("Missing credentials")
                 } 
@@ -41,13 +41,12 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
 
                 if (!isValide) throw new Error("Invalid Credentials");
 
-                const {id, name, email, password, image, role} = user;
+                const {id, name, email, image, role} = user;
 
                 return {
                     id,
                     name,
                     email,
-                    password,
                     role,
                     image,
                 }
@@ -76,3 +75,5 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
         }
     }
 })
+
+export const {GET, POST} = handlers
