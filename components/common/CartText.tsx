@@ -1,14 +1,8 @@
-"use client"
-import useQuantity from "@/components/common/totalQuantity"
-const CartText = () => {
-
-    const {totalQuantity} = useQuantity()
+const CartText = async () => {
 
   return (
     <div className="text-center mt-32 text-xl font-semibold">
-        {!totalQuantity && (
-            <p>Your cart is empty</p>
-        ) }
+          <p>Your cart is empty</p>
     </div>
   )
 }

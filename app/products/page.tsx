@@ -1,7 +1,6 @@
 import Category from "@/components/Category";
 import Product from "@/components/common/Product";
 import { allProducts } from "@/server/db/products";
-import { auth } from "@/auth";
 
 const Products = async ({
   searchParams,

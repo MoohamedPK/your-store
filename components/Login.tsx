@@ -20,13 +20,13 @@ const Login = () => {
               email: data.email,
               password: data.password
             })
-
+            
             if (!response.error) {
-                const errorData = await response.error;
+                const errorData = response.error;
                 throw new Error(errorData || "Registration failed")
             }
 
-            //after registration redirect user to home page
+            // after registration redirect user to home page
             router.push('/');
         } catch (error) {
             setError('root', {type: "manual", message: error instanceof Error ? error.message : "Registration faild"})
@@ -34,10 +34,10 @@ const Login = () => {
     };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
+    <div className="w-1/3 max-w-md mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
       <h1 className="text-2xl font-bold mb-6 text-center">Log in</h1>
       
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
 
         {/* Email Field */}
         <div>

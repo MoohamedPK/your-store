@@ -1,14 +1,18 @@
-import { prisma } from "@/lib/prisma";
-import { caching } from "@/lib/caching";
+import {prisma} from "@/app/lib/prisma"
+import { caching } from "@/app/lib/caching";
 
 export const allProducts = caching((category?: string) => {
-  console.log('from caching',category)
     return prisma.product.findMany({
       where: category ? {
         Category :{
           name : category
-        }
-      } : undefined
+        },
+        
+      } : undefined,
+      include: {
+        orders: true,
+        sizes: true,
+      }
     });
 
 },
@@ -20,7 +24,11 @@ export const featuredProducts =  caching(() => {
       orderBy: {
         createdAt: "desc" // take the last created prods 
       },
-      take: 3, // give me a limit of 5 prods
+      take: 3,
+      include: {
+        orders: true,
+        sizes: true
+      } // give me a limit of 5 prods
       
     });
 
@@ -33,13 +41,14 @@ export const productById = caching((id: string) => {
         id: id
       },
       include: {
-        sizes: true
+        sizes: true,
+        
       }
     }) 
 }, ['productId'], {revalidate: 3600})
 
 
-export const cartProducts = (ids: string[]) => {
+export const cartProducts = caching((ids: string[]) => {
   return prisma.product.findMany({
     where : {
       id: {
@@ -51,4 +60,4 @@ export const cartProducts = (ids: string[]) => {
       orders: true,
     }
   })
-}
+}, ['cart-products'], {revalidate: 60})

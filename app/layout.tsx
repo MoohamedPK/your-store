@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/common/Footer";
 import { StoreProvider } from "@/redux/StoreProvider";
+import { SessionProvider } from "next-auth/react";
+// import SyncCartOnLogin from "@/components/common/SyncCartOnLogin";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,8 +33,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-between `}
       >
           <StoreProvider>
-            <Navbar/>
-            {children}
+            <SessionProvider>
+              {/* <SyncCartOnLogin/> */}
+              <Navbar/>
+              {children}
+            </SessionProvider>
           </StoreProvider>
         <Footer/>
       </body>

@@ -1,5 +1,5 @@
 import NextAuth, { DefaultSession } from "next-auth";
-import {prisma} from "@/lib/prisma";
+import {prisma} from "@/app/lib/prisma";
 
 // Extend the default Session and User types
 declare module "next-auth" {
@@ -27,21 +27,20 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
                 password: {type: "password", label: "Password"}
             },
 
-            async authorize(credentials: Partial<Record<"email" | "password", unknown>>) {
-                console.log("authorize called with:", credentials);
+            async authorize(credentials) {
                 if (typeof credentials.email !== "string" || typeof credentials.password !== "string") {
                     throw new Error("Missing credentials")
                 } 
 
                 const user = await prisma.user.findUnique({where: {email: credentials.email}});
 
-                if (!user || !user?.password) throw new Error("Invalid Credentials");
+                if (!user || !user?.password) return console.log('user not found')
 
                 const isValide = await bcrypt.compare(credentials.password, user.password)
 
-                if (!isValide) throw new Error("Invalid Credentials");
+                if (!isValide) return console.log('user not found')
 
-                const {id, name, email, image, role} = user;
+                const {id, name, email, role, image} = user;
 
                 return {
                     id,
@@ -62,7 +61,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
         async jwt({token, user}) {
             if (user) {
                 token.id = user.id;
-                token.role = user.role
+                token.role = user.role                
             }
             return token
         },
@@ -70,7 +69,6 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
         async session ({session, token}){
             session.user.id = token.id as string;
             session.user.role = token.role as string
-
             return session;
         }
     }

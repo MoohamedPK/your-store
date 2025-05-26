@@ -1,15 +1,8 @@
-import CartText from "@/components/common/CartText"
-import CartPage from "@/components/CartPage"
 
-const Cart = async () => {
-
+const page = () => {
   return (
-    <div>
-      <CartText/>
-        
-      <CartPage/>
-    </div>
+    <div>cart page</div>
   )
 }
 
-export default Cart
+export default page

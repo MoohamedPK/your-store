@@ -1,10 +1,12 @@
 "use client"
+
 import { registerSchema } from "@/zod/registerSchema"
 import {useForm, SubmitHandler} from "react-hook-form"
 import {z} from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
 
 type FormInputsType = z.infer<typeof registerSchema> 
 
@@ -31,8 +33,16 @@ const Register = () => {
                 throw new Error(errorData.message || "Registration failed")
             }
 
+            const result = await signIn("credentials", {
+              email: data.email,
+              password: data.password,
+              redirect: false
+            })
+
+            if (result.error) throw new Error(result.error);
+
             //after registration redirect user to home page
-            router.push('/');
+            router.push('/profile');
         } catch (error) {
             setError('root', {type: "manual", message: error instanceof Error ? error.message : "Registration faild"})
         }

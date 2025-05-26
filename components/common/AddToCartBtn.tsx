@@ -1,17 +1,37 @@
 "use client"
-import { useDispatch } from "react-redux";
-import { addToCart } from "@/redux/cart/cartSlice";
 
-const AddToCartBtn = ({id}: {id: string}) => {
+import { cartProps } from "@/app/lib/definitions";
+import { addToCart } from "@/redux/cart/cartSlice"
+import { useDispatch } from "react-redux"
+import { useCallback, useTransition } from "react";
+import { useSession } from "next-auth/react";
+import { addToUserCart } from "@/app/actions/cart/user/updateCart";
 
-  const dispatch = useDispatch();
+const AddToCartBtn = ({productId, size, quantity}: cartProps) => {
+
+    const {data: session} = useSession()
+    const [isPending, startTransition] = useTransition();
+    console.log(isPending)
+    const dispatch = useDispatch();
+
+    const handleAddToCart = useCallback(() => {
+      dispatch(addToCart({ productId, size, quantity }));
   
-  const handleAddToCart = () => {
-    
-    dispatch(addToCart(id))
-  }
+      if (session) {
+        startTransition(() => {
+          addToUserCart({ productId, size, quantity });
+        });
+      }
+    }, [productId, size, quantity, session, dispatch]);
+
+
   return (
-    <button onClick={handleAddToCart} className="bg-black text-white cursor-pointer button-hover px-6 py-2">Add to Cart</button>
+    <button
+    disabled={isPending}
+    onClick={handleAddToCart}
+    className="bg-black text-white cursor-pointer button-hover px-6 py-2">
+      {isPending ? "Adding..." : "Add to Cart"}
+    </button>
   )
 }
 

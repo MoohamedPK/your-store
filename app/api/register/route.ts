@@ -1,7 +1,6 @@
-import {prisma} from "@/lib/prisma"
+import {prisma} from "@/app/lib/prisma"
 import bcrypt from "bcryptjs"
 import { NextResponse } from "next/server"
-
 
 export async function POST (res: NextResponse) {
 
@@ -20,11 +19,12 @@ export async function POST (res: NextResponse) {
             data: {
                 name,
                 email,
+                role: "USER",
                 password: hashedPassword,
             }
         });
 
-        return NextResponse.json({user: {id: user.id, email: user.email}}, {status: 201}); // if you're dumb asf return the hashed password
+        return NextResponse.json({user: {id: user.id, email: user.email, name: user.name}}, {status: 201}); // if you're dumb asf return the hashed password
 
     } catch (error) {
         return NextResponse.json({message: error}, {status: 500})
