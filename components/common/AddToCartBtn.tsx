@@ -7,23 +7,23 @@ import { useCallback, useTransition } from "react";
 import { useSession } from "next-auth/react";
 import { addToUserCart } from "@/app/actions/cart/user/updateCart";
 
+
 const AddToCartBtn = ({productId, size, quantity}: cartProps) => {
 
     const {data: session} = useSession()
     const [isPending, startTransition] = useTransition();
-    console.log(isPending)
     const dispatch = useDispatch();
-
+    
     const handleAddToCart = useCallback(() => {
-      dispatch(addToCart({ productId, size, quantity }));
-  
+      dispatch(addToCart({ productId, size, quantity }))
+      
       if (session) {
         startTransition(() => {
           addToUserCart({ productId, size, quantity });
         });
       }
     }, [productId, size, quantity, session, dispatch]);
-
+    
 
   return (
     <button

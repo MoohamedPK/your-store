@@ -31,7 +31,7 @@ model Product {
   id          String         @id @default(cuid())
   name        String
   description String
-  price       Decimal
+  price       Int
   image       String // store Cloudinary URL here
   sortOrder   Int
   sizes       Size[]
@@ -86,6 +86,12 @@ model Size {
   @@unique([name, productId])
 }
 
+enum ProductSizes {
+  SMALL
+  MEDIUM
+  LARGE
+}
+
 model Cart {
   id        String     @id @default(cuid())
   user      User       @relation(fields: [userId], references: [id])
@@ -105,10 +111,4 @@ model CartItem {
   size      ProductSizes
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
-}
-
-enum ProductSizes {
-  SMALL
-  MEDIUM
-  LARGE
 }

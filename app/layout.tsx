@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/common/Footer";
 import { StoreProvider } from "@/redux/StoreProvider";
 import { SessionProvider } from "next-auth/react";
-// import SyncCartOnLogin from "@/components/common/SyncCartOnLogin";
+import CartCookie from "@/components/common/CartCookie";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +34,7 @@ export default function RootLayout({
       >
           <StoreProvider>
             <SessionProvider>
-              {/* <SyncCartOnLogin/> */}
+              <CartCookie/>
               <Navbar/>
               {children}
             </SessionProvider>

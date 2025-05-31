@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import {signIn} from "next-auth/react"
+import { store } from "@/redux/store"
+import { setCart } from "@/redux/cart/cartSlice"
 
 type FormInputsType = z.infer<typeof loginSchema> 
 
@@ -21,9 +23,28 @@ const Login = () => {
               password: data.password
             })
             
-            if (!response.error) {
-                const errorData = response.error;
-                throw new Error(errorData || "Registration failed")
+            if (response.error) {
+                throw new Error(response.error)
+            }
+
+            const state = store.getState();
+            const guestItems = state.cart.items;
+
+            if (guestItems.length > 0 ) {
+              const res = await fetch("/api/cart/merge", {
+                method: "POST",
+                headers: {
+                  "Content-Type" : "application/json",
+                },
+                body: JSON.stringify({guestItems})
+              })
+
+              const result = await res.json();
+
+              if (result.cart.items) {
+                console.log("cart itesms added to redux")
+                store.dispatch(setCart(result.cart.items))
+              }
             }
 
             // after registration redirect user to home page

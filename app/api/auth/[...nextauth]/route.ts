@@ -17,7 +17,6 @@ declare module "next-auth" {
 import bcrypt from "bcryptjs";
 import Credentials from "next-auth/providers/credentials";
 
-
 export const {handlers, signIn, signOut, auth} = NextAuth({
     providers: [
         Credentials({
@@ -34,11 +33,11 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
 
                 const user = await prisma.user.findUnique({where: {email: credentials.email}});
 
-                if (!user || !user?.password) return console.log('user not found')
+                if (!user || !user?.password) return {error: "User not Found"};
 
                 const isValide = await bcrypt.compare(credentials.password, user.password)
 
-                if (!isValide) return console.log('user not found')
+                if (!isValide) return {error: "User not Found"};
 
                 const {id, name, email, role, image} = user;
 
@@ -70,7 +69,9 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
             session.user.id = token.id as string;
             session.user.role = token.role as string
             return session;
-        }
+        },
+
+        
     }
 })
 

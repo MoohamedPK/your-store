@@ -9,7 +9,7 @@ export async function addToUserCart (cartItems:cartProps) {
 
     const session = await auth();
 
-    if (!session?.user.id) return {message: "Not Authenticated"};  
+    if (!session?.user.id) return {error: "Not Authenticated"};  
     
     try {
         
@@ -40,7 +40,6 @@ export async function addToUserCart (cartItems:cartProps) {
             }})
         }
 
-        console.log('product updated successfully')
         return {success: true}
 
     } catch (error) {

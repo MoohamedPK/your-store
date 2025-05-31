@@ -5,9 +5,10 @@ import Image from "next/image";
 import QuantityController from "./QuantityController";
 import DeleteProduct from "./DeleteProduct";
 
-const CartProduct = ({product}: {product:CartProductsType}) => {
+const CartProduct = ({product}: {product: CartProductsType}) => {
 
-    const {id, name, image, price, sizes} = product
+    const {id, sizes, name, image, price} = product;
+    console.log(sizes)
     
     return (
         <div className="flex justify-between" key={id}>

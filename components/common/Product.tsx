@@ -6,9 +6,10 @@ import { currancyFormatter } from "@/app/lib/formatters";
 import AddToCartBtn from "@/components/common/AddToCartBtn";
 import { CartProductsType } from "@/app/lib/definitions";
 
-const Product = ({product, defaultSize}: {product: CartProductsType, defaultSize: "SMALL" | "MEDIUM" | "LARGE"}) => {
+const Product = ({product}: {product: CartProductsType,}) => {
 
     const {id, name, description, price, image, sizes} = product;
+    const defaultSize = sizes[1].name
     
   return (
     <div className="px-4 py-6 border-2 border-black cursor-pointer group">
