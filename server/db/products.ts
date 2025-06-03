@@ -49,7 +49,7 @@ export const productById = caching((id: string) => {
 
 
 export const cartProducts = caching((ids: string[]) => {
-  return prisma.product.findMany({
+    return prisma.product.findMany({
     where : {
       id: {
         in: ids
@@ -57,7 +57,9 @@ export const cartProducts = caching((ids: string[]) => {
     },
     include: {
       sizes: true,
-      orders: true,
+      CartItem: true
+      // orders: true
     }
   })
+  
 }, ['cart-products'], {revalidate: 60})

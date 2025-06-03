@@ -5,7 +5,7 @@ import { addToCart } from "@/redux/cart/cartSlice"
 import { useDispatch } from "react-redux"
 import { useCallback, useTransition } from "react";
 import { useSession } from "next-auth/react";
-import { addToUserCart } from "@/app/actions/cart/user/updateCart";
+import { addToUserCart } from "@/app/actions/cart/user/addToUserCart";
 
 
 const AddToCartBtn = ({productId, size, quantity}: cartProps) => {

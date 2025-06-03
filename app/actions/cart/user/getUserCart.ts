@@ -15,7 +15,11 @@ export async function getUserCart () {
         include: {
             items: {
                 include: {
-                    product: true
+                    product: {
+                        include: {
+                            sizes: true
+                        }
+                    }                    
                 }
             }
         }

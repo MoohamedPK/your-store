@@ -6,4 +6,5 @@ export type cartProps = {
     size: 'SMALL' | 'MEDIUM' | 'LARGE'
 }
 
-export type CartProductsType = Prisma.ProductGetPayload<{include: {sizes: true,}}>
+export type CartProductsType = Prisma.ProductGetPayload<{include: {sizes: true, orders: true}}>
+export type ProductsWithSizes = Prisma.ProductGetPayload<{include: {sizes: true, CartItem: true}}>

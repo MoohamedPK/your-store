@@ -1,15 +1,27 @@
 'use client'
 
-import { CartProductsType } from "@/app/lib/definitions"
+import { ProductsWithSizes } from "@/app/lib/definitions"
 import Image from "next/image";
 import QuantityController from "./QuantityController";
 import DeleteProduct from "./DeleteProduct";
+import { useState } from "react";
+import { ProductSizes } from "@prisma/client";
+import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
 
-const CartProduct = ({product}: {product: CartProductsType}) => {
+const CartProduct = ({product}: {product: ProductsWithSizes}) => {
+    const {id, sizes, name, image, price, CartItem} = product;
 
-    const {id, sizes, name, image, price} = product;
-    console.log(sizes)
-    
+    console.log(CartItem)
+    const [selectedSize, setSelectedSize] = useState(sizes[0].name);    
+
+    const handleSize = (e:React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedSize(e.target.value as ProductSizes)
+    }
+
+    const cartItem = useSelector((state:RootState) => state.cart.items.find((item) => item.productId === id && item.size === selectedSize));
+    const currentQuantity = cartItem?.quantity || 1
+
     return (
         <div className="flex justify-between" key={id}>
 
@@ -23,7 +35,7 @@ const CartProduct = ({product}: {product: CartProductsType}) => {
                     
                     <div className="flex mt-5 space-x-5">
                     <label htmlFor="">Choose size</label>
-                    <select name="select" id="">
+                    <select name="select" id="" onChange={(e) => handleSize(e)} value={selectedSize}>
                     {sizes.map((size) => (
                         <option value={size.name} key={size.id}>{size.name}</option> 
                     ))}
@@ -34,13 +46,13 @@ const CartProduct = ({product}: {product: CartProductsType}) => {
 
             <div className="right space-y-10">
                     <div className="delete">
-                        <DeleteProduct/>
+                        <DeleteProduct currentQuantity={currentQuantity} size={selectedSize} productId={id} />
                     </div>
 
                     <div className="space-y-10">
                         <div className="quantity text-center">
                             <span className="text-sm text-neutral-600">Quantity</span>
-                            <QuantityController/>
+                            <QuantityController currentQuantity={currentQuantity} size={selectedSize} productId={id} />
                         </div>
 
                         <div className="price font-semibold py-1 px-3 border-[1px] border-black">
@@ -48,6 +60,8 @@ const CartProduct = ({product}: {product: CartProductsType}) => {
                         </div>
                     </div>
             </div>
+
+            {/* checkout will take then the {productId, selectedSize, quantity} */}
         </div>
     )
 }

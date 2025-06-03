@@ -9,7 +9,6 @@ import { CartProductsType } from "@/app/lib/definitions";
 const Product = ({product}: {product: CartProductsType,}) => {
 
     const {id, name, description, price, image, sizes} = product;
-    const defaultSize = sizes[1].name
     
   return (
     <div className="px-4 py-6 border-2 border-black cursor-pointer group">
@@ -19,7 +18,7 @@ const Product = ({product}: {product: CartProductsType,}) => {
             <span className="font-bold px-3 text-lg border-[1px] border-black">{currancyFormatter(Number(price))}</span>
             <Image src={image} alt="prod image" width={350} height={350} className="my-3 group-hover:scale-85 transition-transform duration-300"/>
         </Link>
-        <AddToCartBtn productId={id} size={defaultSize} quantity={1}/>
+        <AddToCartBtn productId={id} size={sizes[0].name} quantity={1}/>
     </div>
   )
 }
