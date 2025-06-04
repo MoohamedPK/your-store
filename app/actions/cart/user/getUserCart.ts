@@ -17,7 +17,7 @@ export async function getUserCart () {
                 include: {
                     product: {
                         include: {
-                            sizes: true
+                            sizes: true,
                         }
                     }                    
                 }
@@ -25,5 +25,13 @@ export async function getUserCart () {
         }
     })
 
-    return userCart?.items || [];
+    return (userCart?.items || []).map((item) => ({
+        productId: item.productId,
+        name: item.product.name,
+        image: item.product.image,
+        price: item.product.price,
+        size: item.size,
+        quantity: item.quantity,
+        sizes: item.product.sizes
+      }));
 }

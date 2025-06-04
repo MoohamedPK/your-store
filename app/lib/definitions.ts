@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client"
+import { Prisma, ProductSizes } from "@prisma/client"
 
 export type cartProps = {
     productId: string
@@ -6,5 +6,15 @@ export type cartProps = {
     size: 'SMALL' | 'MEDIUM' | 'LARGE'
 }
 
-export type CartProductsType = Prisma.ProductGetPayload<{include: {sizes: true, orders: true}}>
+export type CartProductsType = Prisma.ProductGetPayload<{include: {sizes: true}}>
 export type ProductsWithSizes = Prisma.ProductGetPayload<{include: {sizes: true, CartItem: true}}>
+
+export type NormalizedCartItem = {
+    productId: string;
+  name: string;
+  image: string;
+  price: number;
+  size: ProductSizes;
+  quantity: number;
+  sizes: { id: string; name: ProductSizes }[]; // for the dropdown
+}

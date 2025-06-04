@@ -20,4 +20,8 @@
     .shadow {
         @apply shadow-2xl shadow-blue-800
     }
+
+    button:disabled:hover {
+        opacity: 0.5;
+    }
 }

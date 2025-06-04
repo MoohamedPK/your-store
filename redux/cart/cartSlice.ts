@@ -28,13 +28,25 @@ const cartSlice = createSlice({
             }
         },
 
-        updateQuantity: (state, action:PayloadAction<cartProps>) => {
-            const item = state.items.find((item) => item.productId === action.payload.productId && item.size === action.payload.size)
-
-            if (item) {
-                item.quantity += action.payload.quantity
+        updateQuantity: (state, action: PayloadAction<cartProps>) => {
+            const itemIndex = state.items.findIndex(
+                (item) =>
+                item.productId === action.payload.productId &&
+                item.size === action.payload.size
+            );
+            
+            if (itemIndex !== -1) {
+                const newQuantity = state.items[itemIndex].quantity + action.payload.quantity;
+            
+                if (newQuantity <= 0) {
+                // Remove item if quantity is 0 or less
+                state.items.splice(itemIndex, 1);
+                } else {
+                // Otherwise update the quantity
+                state.items[itemIndex].quantity = newQuantity;
+                }
             }
-        },
+            },
 
         removeFromCart : (state,action:PayloadAction<cartProps>) => {
             state.items = state.items.filter((item) => item.productId !== action.payload.productId && item.size !== action.payload.size)

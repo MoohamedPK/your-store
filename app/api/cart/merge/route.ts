@@ -10,11 +10,9 @@ export async function POST (req: Request) {
 
         const result = await mergeCarts(guestItems)
 
-        console.log('result of mergin:', result);
         return NextResponse.json(result);
         
     } catch (error) {
-        console.error("Merge cart API error:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }
