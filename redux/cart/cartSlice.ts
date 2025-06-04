@@ -25,7 +25,9 @@ const cartSlice = createSlice({
                 itemExist.size = size
             } else {
                 state.items.push(action.payload)
+                
             }
+            
         },
 
         updateQuantity: (state, action: PayloadAction<cartProps>) => {

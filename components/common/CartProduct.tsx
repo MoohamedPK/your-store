@@ -9,7 +9,13 @@ import { ProductSizes } from "@prisma/client";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
+<<<<<<< Updated upstream
 const CartProduct = ({item}: {item: NormalizedCartItem }) => {
+=======
+const CartProduct = ({product}: {product: CartProductsType}) => {
+
+    const {id, sizes, name, image, price} = product;
+>>>>>>> Stashed changes
     
     const {productId, name, image, price, sizes ,size} = item;
     const [selectedSize, setSelectedSize] = useState(size)

@@ -13,7 +13,11 @@ const Featured = async() => {
       
       <div className="mt-15 grid grid-cols-3 gap-3 container">
         {featuredProds.map((product) => (
+<<<<<<< Updated upstream
           <Product key={product.id} product={product} />
+=======
+          <Product key={product.id} product={product}/>
+>>>>>>> Stashed changes
         ))}
         
       </div>
