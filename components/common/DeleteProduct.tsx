@@ -7,12 +7,14 @@ import { useDispatch } from "react-redux"
 import { useSession } from "next-auth/react";
 import { deleteCartItem } from "@/app/actions/cart/user/deleteCartItem";
 import { useTransition } from "react";
+import { useRouter } from "next/navigation";
 
 const DeleteProduct = ({productId, size, currentQuantity}: {productId: string, size:ProductSizes, currentQuantity: number}) => {
 
   const {data: session} = useSession();
   const dispatch = useDispatch();
   const [isPending, startTransition] = useTransition()
+  const router = useRouter();
 
   const handleDelete = async () => {
 
@@ -21,6 +23,7 @@ const DeleteProduct = ({productId, size, currentQuantity}: {productId: string, s
         await deleteCartItem({productId, size})
       } else {
         dispatch(removeFromCart({productId, size, quantity : currentQuantity}))
+        router.refresh()
       }
     })
   }

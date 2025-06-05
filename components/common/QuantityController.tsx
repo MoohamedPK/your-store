@@ -4,12 +4,9 @@ import { updateQuantity } from "@/redux/cart/cartSlice";
 import { Minus, Plus } from "lucide-react"
 import { useDispatch } from "react-redux"
 import { useSession } from "next-auth/react";
-<<<<<<< Updated upstream
-import { updateUserCartQuantity } from "@/app/actions/cart/user/updateUserCartQuantity";
-=======
->>>>>>> Stashed changes
 import { cartProps } from "@/app/lib/definitions";
 import { useTransition } from "react";
+import { updateUserCartQuantity } from "@/app/actions/cart/user/updateUserCartQuantity";
 import { useRouter } from "next/navigation";
 
 const QuantityController = ({quantity, size, productId}: cartProps) => {
@@ -17,20 +14,16 @@ const QuantityController = ({quantity, size, productId}: cartProps) => {
   const {data: session} = useSession();
   const dispatch = useDispatch();
   const [isPending, startTransition] = useTransition();
-  const router = useRouter()
+  const router = useRouter();
 
   const handleChange = async (amount: number) => {
 
     startTransition( async () => {
       if (session) {
-        (await updateUserCartQuantity({productId, size, quantity: amount}))
+        await updateUserCartQuantity({productId, size, quantity: amount})
       } else {
         dispatch(updateQuantity({productId, size, quantity: amount}))
-<<<<<<< Updated upstream
         router.refresh()
-=======
-        
->>>>>>> Stashed changes
       }
     })
   }

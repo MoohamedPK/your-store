@@ -6,24 +6,12 @@ import QuantityController from "./QuantityController";
 import DeleteProduct from "./DeleteProduct";
 import { useState } from "react";
 import { ProductSizes } from "@prisma/client";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 
-<<<<<<< Updated upstream
 const CartProduct = ({item}: {item: NormalizedCartItem }) => {
-=======
-const CartProduct = ({product}: {product: CartProductsType}) => {
-
-    const {id, sizes, name, image, price} = product;
->>>>>>> Stashed changes
     
-    const {productId, name, image, price, sizes ,size} = item;
+    const {productId, name, image, price, sizes, quantity,size} = item;
     const [selectedSize, setSelectedSize] = useState(size)
 
-    const quantity = useSelector((state: RootState) => {
-        const cartItem = state.cart.items.find(item => item.productId === productId && item.size === selectedSize)
-        return cartItem ? cartItem.quantity : 0
-    })
 
     return (
         <div className="flex justify-between" key={productId}>

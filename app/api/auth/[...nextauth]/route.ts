@@ -1,19 +1,5 @@
-import NextAuth, { DefaultSession } from "next-auth";
+import NextAuth from "next-auth";
 import {prisma} from "@/app/lib/prisma";
-
-// Extend the default Session and User types
-declare module "next-auth" {
-    interface Session {
-        user: {
-            id: string;
-            role: string;
-        } & DefaultSession["user"];
-    }
-
-    interface User {
-        role: string;
-    }
-}
 import bcrypt from "bcryptjs";
 import Credentials from "next-auth/providers/credentials";
 
@@ -27,15 +13,15 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
             },
 
             async authorize(credentials) {
-                if (typeof credentials.email !== "string" || typeof credentials.password !== "string") {
-                    throw new Error("Missing credentials")
-                } 
+                if (!credentials?.email || !credentials?.password) {
+                    return null;
+                }
 
-                const user = await prisma.user.findUnique({where: {email: credentials.email}});
+                const user = await prisma.user.findUnique({where: {email: credentials.email as string}});
 
-                if (!user || !user?.password) return {error: "User not Found"};
+                if (!user || !user?.password) return null;
 
-                const isValide = await bcrypt.compare(credentials.password, user.password)
+                const isValide = await bcrypt.compare(credentials.password as string, user.password)
 
                 if (!isValide) return {error: "User not Found"};
 
@@ -60,14 +46,12 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
         async jwt({token, user}) {
             if (user) {
                 token.id = user.id;
-                token.role = user.role                
             }
             return token
         },
 
         async session ({session, token}){
             session.user.id = token.id as string;
-            session.user.role = token.role as string
             return session;
         },
 

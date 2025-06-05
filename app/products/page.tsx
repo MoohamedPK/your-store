@@ -4,9 +4,7 @@ import { allProducts } from "@/server/db/products";
 
 const Products = async ({
   searchParams,
-}: {
-  searchParams?: Promise<{ category?: string }>;
-}) => {
+}: {searchParams: Promise<{ category?: string }>}) => {
 
   const params = await searchParams;
   const category = params?.category;

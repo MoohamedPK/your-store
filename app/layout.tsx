@@ -6,10 +6,7 @@ import Footer from "@/components/common/Footer";
 import { StoreProvider } from "@/redux/StoreProvider";
 import { SessionProvider } from "next-auth/react";
 import CartCookie from "@/components/common/CartCookie";
-<<<<<<< Updated upstream
 // import Script from "next/script";
-=======
->>>>>>> Stashed changes
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
