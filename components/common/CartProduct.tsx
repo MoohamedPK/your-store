@@ -51,7 +51,6 @@ const CartProduct = ({item}: {item: NormalizedCartItem }) => {
                     </div>
             </div>
 
-            {/* checkout will take then the {productId, selectedSize, quantity} */}
         </div>
     )
 }

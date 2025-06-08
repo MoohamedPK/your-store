@@ -6,7 +6,7 @@ import { auth } from "@/app/api/auth/[...nextauth]/route"
 export async function getUserCart () {
 
     const session = await auth()
-    if (!session?.user.id) return []; 
+    if (!session?.user?.id) return []; 
 
     const userCart = await prisma.cart.findUnique({
         where: {

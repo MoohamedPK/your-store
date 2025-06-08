@@ -9,7 +9,7 @@ export async function mergeCarts (guestItems: cartProps[]) {
 
     const session = await auth();
 
-    if (!session?.user.id) return {error: "Unauthenticated"};
+    if (!session?.user?.id) return {error: "Unauthenticated"};
 
     try {
         const userCart = await prisma.cart.findUnique({

@@ -1,8 +1,13 @@
 import { auth } from "@/app/api/auth/[...nextauth]/route"
+import { redirect } from "next/navigation";
 
 const Profile = async() => {
 
     const session = await auth();
+
+    if (!session?.user?.id) {
+      return redirect("/login")
+    } 
 
   return (
     <div>

@@ -46,7 +46,7 @@ model Product {
 
 model Order {
   id            String         @id @default(cuid())
-  paid          Boolean
+  paid          Boolean @default(false)
   subtotalPrice Float
   deliveryFee   Float
   totalPrice    Float

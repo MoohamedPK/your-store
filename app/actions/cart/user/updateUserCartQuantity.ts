@@ -9,7 +9,7 @@ export async function updateUserCartQuantity ({productId, size, quantity}: {prod
 
     const session = await auth();
 
-    if (!session?.user.email) return {error: "Unauthenticated"};
+    if (!session?.user?.email) return {error: "Unauthenticated"};
 
     const cart = await prisma.cart.findUnique({
         where: {userId: session.user.id},

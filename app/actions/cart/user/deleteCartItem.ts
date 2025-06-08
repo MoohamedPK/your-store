@@ -9,7 +9,7 @@ export async function deleteCartItem({productId, size}: {productId: string, size
 
     const session = await auth();
 
-    if (!session?.user.email) return {error: "Unauthenticated"};
+    if (!session?.user?.email) return {error: "Unauthenticated"};
 
     const cart = await prisma.cart.findUnique({where: {userId: session.user.id}, include: {items: true}});
 
