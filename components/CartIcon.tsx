@@ -1,6 +1,6 @@
 "use client"
 import { RootState } from "@/redux/store";
-import { LucideShoppingBag } from "lucide-react";
+import { ShoppingBasket } from "lucide-react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import Ping from "./common/Ping";
@@ -12,7 +12,7 @@ export const CartIcon = () => {
 
     return (
         <Link href={"/cart"} className="cursor-pointer relative">
-            <LucideShoppingBag/>
+            <ShoppingBasket/>
 
             {totalQuantity > 0 && (
                     <Ping/>

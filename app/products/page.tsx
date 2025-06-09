@@ -1,25 +1,29 @@
 import Category from "@/components/Category";
-import Product from "@/components/common/Product";
-import { allProducts } from "@/server/db/products";
+import Search from "@/components/common/Search";
+import ProductsGrid from "@/components/ProductsGrid";
+import { Suspense } from "react";
 
-const Products = async ({
-  searchParams,
-}: {searchParams: Promise<{ category?: string }>}) => {
+const Products = async (props : {searchParams?: Promise<{
+  query?: string, category?: string
+}>}) => {
 
-  const params = await searchParams;
-  const category = params?.category;
-  const products = await allProducts(category);
+  const searchPrams = await props.searchParams;
+  const query = searchPrams?.query || "";
+  const category = searchPrams?.category || "";
 
   return (
     <main className="h-screen container mt-10">
       <div>
+        <Search/>
         <Category />
 
-        <div className="products grid grid-cols-3 gap-5 mt-20">
-          {products.map((product) => (
-            <Product product={product} key={product.id}/>
-          ))}
-        </div>
+        <Suspense fallback={'loading...'}>
+          {query && (
+            <h1>search for {`"${query.toString()}"`}</h1>
+          )}
+
+          <ProductsGrid category={category} query={query}/>
+        </Suspense>
       </div>
     </main>
   );

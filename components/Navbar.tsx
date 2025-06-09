@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { CartIcon } from "./CartIcon"
+import { CartIcon} from "./CartIcon"
 import UserMenu from "./common/UserMenu"
 
 const Navbar = async () => {

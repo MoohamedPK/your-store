@@ -1,22 +1,27 @@
 import {prisma} from "@/app/lib/prisma"
 import { caching } from "@/app/lib/caching";
 
-export const allProducts = caching((category?: string) => {
-    return prisma.product.findMany({
-      where: category ? {
-        Category :{
-          name : category
-        },
-        
-      } : undefined,
-      include: {
-        orders: true,
-        sizes: true,
-      }
-    });
-
-},
-  ["all-porducts"], {revalidate: 3600})
+export const allProducts = caching((category?: string, query?: string) => {
+  return prisma.product.findMany({
+    where: {
+      ...(category && {
+        Category: {
+          name: category
+        }
+      }),
+      ...(query && {
+        name: {
+          contains: query,
+          mode: "insensitive" // Optional: makes it case-insensitive
+        }
+      })
+    },
+    include: {
+      orders: true,
+      sizes: true
+    }
+  });
+}, ["all-products"], { revalidate: 3600 });
 
 export const featuredProducts =  caching(() => { 
 
