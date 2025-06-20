@@ -33,5 +33,5 @@ export async function getUserCart () {
         size: item.size,
         quantity: item.quantity,
         sizes: item.product.sizes
-      }));
+    }));
 }

@@ -5,20 +5,21 @@ import CartProduct from "@/components/common/CartProduct";
 import { getGuestCart } from "../actions/cart/guest/getGuestCart";
 import Link from "next/link";
 import { ArrowRightIcon } from "lucide-react";
-import { calculateTotale } from "../lib/utils";
+import { calculateTotal } from "../lib/utils";
 
 const page = async () => {
   const session = await auth();
 
-  const cart = session?.user?.id ? await getUserCart() : await getGuestCart();
-  const total = calculateTotale(cart.filter((item): item is NonNullable<typeof item> => item !== null))
+  const cart = session?.user?.id ? await getUserCart() || [] : await getGuestCart() || [];
+  const total = calculateTotal(cart.filter((item): item is NonNullable<typeof item> => item !== null))
   
     return (
       <div className="container grid grid-cols-4 gap-8 h-screen">
         <div className="col-span-3">
             {cart.length === 0 ? (
-              <div>Your cart is Empty</div>
+              <div className="text-xl capitalize font-semibold">Your cart is Empty</div>
             ) : (
+              
               cart
       .filter((item): item is NonNullable<typeof item> => item !== null)
       .sort((a, b) => a.productId.localeCompare(b.productId))

@@ -25,14 +25,7 @@ const AddToCartBtn = ({productId, size, quantity}: cartProps) => {
           dispatch(addToCart({ productId, size, quantity }));
         })
       }
-      
-      // if (session) {
-      //   startTransition(() => {
-      //     addToUserCart({ productId, size, quantity });
-      //   });
-      // } else {
-      //   dispatch(addToCart({ productId, size, quantity }))
-      // }
+
     }, [productId, size, quantity, session, dispatch]);
     
 

@@ -46,7 +46,8 @@ model Product {
 
 model Order {
   id            String         @id @default(cuid())
-  paid          Boolean @default(false)
+  paid          Boolean        @default(false)
+  status        OrderStatus    @default(PENDING)
   subtotalPrice Float
   deliveryFee   Float
   totalPrice    Float
@@ -57,6 +58,14 @@ model Order {
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   products      OrderProduct[]
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
 }
 
 model OrderProduct {

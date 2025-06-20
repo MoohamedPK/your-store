@@ -2,21 +2,7 @@
 
 import { prisma } from "@/app/lib/prisma";
 import { auth } from "@/app/api/auth/[...nextauth]/route";
-
-type CreateOrderInput = {
-  name: string;
-  userEmail: string;
-  phone: string;
-  city: string;
-  streetAddress: string;
-  subtotalPrice: number;
-  deliveryFee: number;
-  totalPrice: number;
-  products: {
-    productId: string;
-    quantity: number;
-  }[];
-};
+import { CreateOrderInput } from "@/app/lib/definitions";
 
 export async function createOrder(order: CreateOrderInput) {
   const session = await auth();
@@ -47,6 +33,7 @@ export async function createOrder(order: CreateOrderInput) {
     });
 
     return newOrder;
+    
   } catch (error) {
     console.error("Error creating order:", error);
     return null;

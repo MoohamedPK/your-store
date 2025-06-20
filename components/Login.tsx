@@ -22,9 +22,9 @@ const Login = () => {
               email: data.email,
               password: data.password
             })
-            
+            console.log(response)
             if (response.error) {
-                throw new Error(response.error)
+                throw new Error("Incorrect username or password")
             }
 
             const state = store.getState();
@@ -42,7 +42,6 @@ const Login = () => {
               const result = await res.json();
 
               if (result.cart.items) {
-                console.log("cart itesms added to redux")
                 store.dispatch(setCart(result.cart.items))
               }
             }

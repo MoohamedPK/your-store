@@ -3,13 +3,13 @@ import Subtotal from "@/components/common/Subtotal"
 import { auth } from "../api/auth/[...nextauth]/route"
 import { getUserCart } from "../actions/cart/user/getUserCart"
 import { getGuestCart } from "../actions/cart/guest/getGuestCart"
-import { calculateTotale } from "../lib/utils"
+import { calculateTotal } from "../lib/utils"
 
 const Checkout = async () => {
 
   const session = await auth()
-  const cart = session?.user?.id ? await getUserCart() : await getGuestCart();
-  const subTotal = calculateTotale(cart.filter((item): item is NonNullable<typeof item> => item !== null))
+  const cart = session?.user?.id ? await getUserCart() || [] : await getGuestCart() || [];
+  const subTotal = calculateTotal(cart.filter((item): item is NonNullable<typeof item> => item !== null))
   const fees = subTotal ? 5 : 0 ;
   const total = subTotal ? subTotal + fees : 0
   

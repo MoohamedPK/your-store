@@ -8,9 +8,10 @@ export type cartProps = {
 
 export type CartProductsType = Prisma.ProductGetPayload<{include: {sizes: true}}>
 export type ProductsWithSizes = Prisma.ProductGetPayload<{include: {sizes: true, CartItem: true}}>
+export type OrdersAndProducts = Prisma.OrderGetPayload<{include: {products: true}}>
 
 export type NormalizedCartItem = {
-    productId: string;
+  productId: string;
   name: string;
   image: string;
   price: number;
@@ -18,3 +19,18 @@ export type NormalizedCartItem = {
   quantity: number;
   sizes: { id: string; name: ProductSizes }[]; // for the dropdown
 }
+
+export type CreateOrderInput = {
+  name: string;
+  userEmail: string;
+  phone: string;
+  city: string;
+  streetAddress: string;
+  subtotalPrice: number;
+  deliveryFee: number;
+  totalPrice: number;
+  products: {
+    productId: string;
+    quantity: number;
+  }[];
+};
