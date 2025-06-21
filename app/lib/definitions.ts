@@ -8,7 +8,11 @@ export type cartProps = {
 
 export type CartProductsType = Prisma.ProductGetPayload<{include: {sizes: true}}>
 export type ProductsWithSizes = Prisma.ProductGetPayload<{include: {sizes: true, CartItem: true}}>
-export type OrdersAndProducts = Prisma.OrderGetPayload<{include: {products: true}}>
+export type OrdersAndProducts = Prisma.OrderGetPayload<{include: {user: true, products: {include: {Product: true}}}}>
+
+export type OrderWithDetails = OrdersAndProducts & {
+  displayName: string;
+}
 
 export type NormalizedCartItem = {
   productId: string;

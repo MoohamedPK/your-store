@@ -13,18 +13,19 @@ enum UserRole {
 }
 
 model User {
-  id        String         @id @default(cuid())
-  name      String
-  email     String         @unique
-  password  String
-  image     String?
-  phone     String?
-  adress    String?
-  role      UserRole       @default(USER)
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
-  orders    OrderProduct[]
-  Cart      Cart?
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  password      String
+  image         String?
+  phone         String?
+  address       String?
+  role          UserRole       @default(USER)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  orders        Order[]
+  Cart          Cart?
+  orderProducts OrderProduct[]
 }
 
 model Product {
@@ -49,6 +50,8 @@ model Order {
   paid          Boolean        @default(false)
   status        OrderStatus    @default(PENDING)
   subtotalPrice Float
+  user          User           @relation(fields: [userId], references: [id])
+  paymentMethod PaymentMethods @default(COD)
   deliveryFee   Float
   totalPrice    Float
   userEmail     String
@@ -58,6 +61,12 @@ model Order {
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   products      OrderProduct[]
+  userId        String
+}
+
+enum PaymentMethods {
+  COD
+  ONLINE
 }
 
 enum OrderStatus {
