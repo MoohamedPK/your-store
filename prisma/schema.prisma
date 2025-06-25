@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "./node_modules/@prisma/client"
 }
 
 datasource db {
@@ -50,7 +51,7 @@ model Order {
   paid          Boolean        @default(false)
   status        OrderStatus    @default(PENDING)
   subtotalPrice Float
-  user          User?           @relation(fields: [userId], references: [id])
+  user          User?          @relation(fields: [userId], references: [id])
   paymentMethod PaymentMethods @default(COD)
   deliveryFee   Float
   totalPrice    Float

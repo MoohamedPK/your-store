@@ -21,5 +21,6 @@ export async function fetchOrders () {
 
     } catch (error) {
         console.log(error);
+        return {success: true, message : error}
     }
 }
