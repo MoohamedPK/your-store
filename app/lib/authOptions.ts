@@ -1,8 +1,10 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/app/lib/prisma";
 import bcrypt from "bcryptjs";
+import { AuthOptions, SessionStrategy } from "next-auth";
+import { UserRole } from "@prisma/client";
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
     providers: [
       CredentialsProvider({
         name: "Credentials",
@@ -34,13 +36,21 @@ export const authOptions = {
       }),
     ],
     session: {
-      strategy: "jwt",
+      strategy: "jwt" as SessionStrategy,
     },
     callbacks: {
       async jwt({ token, user }) {
         if (user) {
-          token.id = user.id;
-          token.role = user.role;
+          const typedUser = user as {
+            id: string;
+            name?: string;
+            email: string;
+            role: string;
+            image?: string | null;
+          };
+
+          token.id = typedUser.id;
+          token.role = typedUser.role as UserRole;
         }
         return token;
       },

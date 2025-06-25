@@ -2,9 +2,10 @@
 import ClientProductDetails from "@/components/ClientProductDetails"
 import { productById } from "@/server/db/products"
 
-const ProductDetails = async ({params}:{ params: { id: string } }) => {
+const ProductDetails = async ({params}: {params: Promise<{id: string}>}) => {
 
-  const product = await productById(params.id)
+  const productId = (await params).id
+  const product = await productById(productId)
   
   if (!product) {
     return <div>Product not found</div>;

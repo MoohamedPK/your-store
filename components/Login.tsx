@@ -23,7 +23,7 @@ const Login = () => {
               password: data.password
             })
             console.log(response)
-            if (response.error) {
+            if (!response || response.error) {
                 throw new Error("Incorrect username or password")
             }
 

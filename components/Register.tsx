@@ -39,7 +39,7 @@ const Register = () => {
               redirect: false
             })
 
-            if (result.error) throw new Error(result.error);
+            if (result && result.error) throw new Error(result.error);
 
             //after registration redirect user to home page
             router.push('/profile');
