@@ -1,11 +1,12 @@
 'use server';
 
 import { prisma } from "@/app/lib/prisma";
-import { auth } from "@/app/api/auth/[...nextauth]/route";
+// import { auth } from "@/app/api/auth/[...nextauth]/route";
+import { getAuthSession } from "@/app/lib/auth";
 import { CreateOrderInput } from "@/app/lib/definitions";
 
 export async function createOrder(order: CreateOrderInput) {
-  const session = await auth();
+  const session = await getAuthSession();
   const userId = session?.user?.id ?? null;
 
   try {

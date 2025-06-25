@@ -9,6 +9,7 @@ export async function updateOrderStatus({
   orderId: string;
   status: string;
 }) {
+
   try {
     // 1. Validate input
     if (!orderId || !status) {
@@ -72,6 +73,7 @@ export async function updateOrderStatus({
       message: `Order status updated to ${status}`,
       data: {
         orderId: updatedOrder.id,
+        updatedAt: updatedOrder.updatedAt,
         newStatus: updatedOrder.status
       }
     };

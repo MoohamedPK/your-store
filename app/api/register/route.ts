@@ -2,10 +2,10 @@ import {prisma} from "@/app/lib/prisma"
 import bcrypt from "bcryptjs"
 import { NextResponse } from "next/server"
 
-export async function POST (res: NextResponse) {
+export async function POST (request: Request) {
 
     try {
-        const {name, email, password} = await res.json();
+        const {name, email, password} = await request.json();
 
         if (!email || !password) return NextResponse.json({message: 'Missing feilds'}, {status: 400});
 

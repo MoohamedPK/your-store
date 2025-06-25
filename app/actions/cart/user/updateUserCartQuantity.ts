@@ -1,13 +1,14 @@
 "use server";
 
-import { auth } from "@/app/api/auth/[...nextauth]/route";
+// import { auth } from "@/app/api/auth/[...nextauth]/route";
+import { getAuthSession } from "@/app/lib/auth";
 import {prisma} from "@/app/lib/prisma"
 import { ProductSizes } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export async function updateUserCartQuantity ({productId, size, quantity}: {productId:string, quantity:number, size:ProductSizes}) {
 
-    const session = await auth();
+    const session = await getAuthSession();
 
     if (!session?.user?.email) return {error: "Unauthenticated"};
 

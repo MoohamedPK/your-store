@@ -20,9 +20,16 @@ const Search = () => {
     }
 
     return (
-        <div className=" bg-black text-white p-3 flex items-center justify-center rounded-2xl my-4">
-            <input type="text" placeholder="search..." className="w-1/2 p-2 border my-5 rounded-lg" defaultValue={searchPrams.get('query')?.toString()} onChange={(e) => handleSearchValue(e.target.value)}/>
-        </div>
+        <div className="bg-black text-white px-4 py-3 flex justify-center rounded-2xl my-4">
+  <input
+    type="text"
+    placeholder="Search..."
+    defaultValue={searchPrams.get('query')?.toString()}
+    onChange={(e) => handleSearchValue(e.target.value)}
+    className="w-full max-w-xl p-2 border border-white rounded-lg text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
+  />
+</div>
+
     )
 }
 

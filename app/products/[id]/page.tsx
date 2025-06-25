@@ -2,7 +2,7 @@
 import ClientProductDetails from "@/components/ClientProductDetails"
 import { productById } from "@/server/db/products"
 
-const ProductDetails = async ({params}: {params: {id: string}}) => {
+const ProductDetails = async ({params}:{ params: { id: string } }) => {
 
   const product = await productById(params.id)
   

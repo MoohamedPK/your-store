@@ -24,8 +24,7 @@ export async function getOrder (orderId: string) {
                         Product : true
                     }
                 }
-            }
-            
+            },
         })
 
         if (!order) throw new Error("Order not found")

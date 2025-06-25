@@ -50,7 +50,7 @@ model Order {
   paid          Boolean        @default(false)
   status        OrderStatus    @default(PENDING)
   subtotalPrice Float
-  user          User           @relation(fields: [userId], references: [id])
+  user          User?           @relation(fields: [userId], references: [id])
   paymentMethod PaymentMethods @default(COD)
   deliveryFee   Float
   totalPrice    Float
@@ -61,7 +61,7 @@ model Order {
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   products      OrderProduct[]
-  userId        String
+  userId        String?
 }
 
 enum PaymentMethods {

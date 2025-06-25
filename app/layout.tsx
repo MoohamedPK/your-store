@@ -4,9 +4,9 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/common/Footer";
 import { StoreProvider } from "@/redux/StoreProvider";
-import { SessionProvider } from "next-auth/react";
 import CartCookie from "@/components/common/CartCookie";
 import { Toaster } from "sonner";
+import AuthProvider from "./providers/AuthProvider";
 // import Script from "next/script";
 
 const geistSans = Geist({
@@ -35,12 +35,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-between `}
       >
           <StoreProvider>
-            <SessionProvider>
+            <AuthProvider>
               <CartCookie/>
               <Navbar/>
               {children}
               <Toaster/>
-            </SessionProvider>
+            </AuthProvider>
           </StoreProvider>
         <Footer/>
       </body>

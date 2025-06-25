@@ -1,11 +1,13 @@
 "use server" 
 
 import {prisma} from "@/app/lib/prisma"
-import { auth } from "@/app/api/auth/[...nextauth]/route"
+// import { auth } from "@/app/api/auth/[...nextauth]/route"
+import { getAuthSession } from "@/app/lib/auth";
+
 
 export async function getUserCart () {
 
-    const session = await auth()
+    const session = await getAuthSession()
     if (!session?.user?.id) return []; 
 
     const userCart = await prisma.cart.findUnique({

@@ -1,12 +1,11 @@
 "use client";
 
 import { cancelOrder } from "@/app/actions/admin/cancelOrder";
-import { ChevronDown, X } from "lucide-react";
-import { ChangeEventHandler, useState, useTransition } from "react";
+import { X } from "lucide-react";
+import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Spinner from "@/components/ui/Spinner";
-import { OrderWithDetails } from "@/app/lib/definitions";
 import { updateOrderStatus } from "@/app/actions/admin/updateOrderStatus";
 
 
@@ -44,41 +43,37 @@ export const CancelOrderBtn = ({orderId} : {orderId: string}) => {
 }
 
 export const UpdateOrderBtn = ({orderId}: {orderId: string}) => {
-
     const [isPending, startTransition] = useTransition();
     
     const {refresh} = useRouter();
 
     const handleStatusChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
         const newStatus = e.target.value;
-        
         startTransition(async () => {
             const response = await updateOrderStatus({ 
                 orderId, 
                 status: newStatus 
             });
-            console.log("client")
+            
+            if (response.success) {
+                toast.success(response.message);
+            } else {
+                toast.error(response.message)
+            }
             refresh();
         });
     };
 
     return (
         <div className=""> 
-            {/* <button className="flex items-center button-hover rounded-lg cursor-pointer default-border px-6 py-2 text-sm font-semibold">
-                <ChevronDown size={18} className="mr-2"/>
-                Update Status
-            </button> */}
-
-            <form action="" className="">
-                <select onChange={handleStatusChange} name="" id="" className="button-hover rounded-lg cursor-pointer default-border px-6 py-2 text-sm font-semibold">
-                    <option value="">Update Status</option>
-                    <option value="">PENDING</option>
-                    <option value="">PROCESSING</option>
-                    <option value="">SHIPPED</option>
-                    <option value="">DELIVERED</option>
-                    <option value="">CANCELLED</option>
-                </select>
-            </form>
+            <select disabled={isPending} onChange={(e) => handleStatusChange(e)} name="" id="" className="button-hover rounded-lg cursor-pointer default-border px-6 py-2 text-sm font-semibold">
+                <option value="">Update Status</option>
+                <option value="PENDING">PENDING</option>
+                <option value="PROCESSING">PROCESSING</option>
+                <option value="SHIPPED">SHIPPED</option>
+                <option value="DELIVERED">DELIVERED</option>
+                <option value="CANCELLED">CANCELLED</option>
+            </select>
         </div>
     )
 }

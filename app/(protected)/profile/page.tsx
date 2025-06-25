@@ -1,8 +1,9 @@
-import { auth } from "@/app/api/auth/[...nextauth]/route"
+// import { auth } from "@/app/api/auth/[...nextauth]/route"
+import { getAuthSession } from "@/app/lib/auth";
 
 const Profile = async() => {
 
-    const session = await auth();
+    const session = await getAuthSession();
 
   return (
     <div>

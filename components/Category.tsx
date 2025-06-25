@@ -21,18 +21,24 @@ const Category = () => {
     }
 
   return (
-    <div className="categories flex justify-center items-center space-x-10">
-        
-        {["all", "accessories", "digital"].map((category) => (
-            <button
-            onClick={() => handleCategoryChange(category === "all" ? "" : category)}
-            key={category} className={clsx('border capitalize border-black px-5 py-2 rounded-full button-hover cursor-pointer hover:bg-zinc-900 hover:text-white transition-all duration-300',
-                {'bg-zinc-900 text-white': searchParams.get("category") === category || category === "all" && !searchParams.get("category")})}>
-            {category}
-        </button>
-        ))}
+    <div className="categories flex flex-wrap justify-center items-center gap-4 sm:gap-6 mt-6 overflow-x-auto px-2">
+  {["all", "accessories", "digital"].map((category) => (
+    <button
+      key={category}
+      onClick={() => handleCategoryChange(category === "all" ? "" : category)}
+      className={clsx(
+        'capitalize border border-black px-4 py-2 rounded-full transition-all duration-300 whitespace-nowrap',
+        'hover:bg-zinc-900 hover:text-white',
+        {
+          'bg-zinc-900 text-white': searchParams.get("category") === category || (category === "all" && !searchParams.get("category")),
+        }
+      )}
+    >
+      {category}
+    </button>
+  ))}
+</div>
 
-    </div>
   )
 }
 

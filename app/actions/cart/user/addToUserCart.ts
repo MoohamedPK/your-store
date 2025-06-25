@@ -1,13 +1,14 @@
 "use server"
 
-import { auth } from "@/app/api/auth/[...nextauth]/route";
+// import { auth } from "@/app/api/auth/[...nextauth]/route";
+import { getAuthSession } from "@/app/lib/auth";
 import { cartProps } from "@/app/lib/definitions";
 import {prisma} from "@/app/lib/prisma";
 
 
 export async function addToUserCart (cartItems:cartProps) {
 
-    const session = await auth();
+    const session = await getAuthSession();
 
     if (!session?.user?.id) return {error: "Not Authenticated"};  
     

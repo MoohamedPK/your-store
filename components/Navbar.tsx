@@ -1,36 +1,35 @@
-import Link from "next/link"
-import UserMenu from "./common/UserMenu"
-import CartIconWrapper from "./common/CartIconWrapper"
+// app/components/Navbar.tsx (Server Component)
+
+import Link from "next/link";
+import CartIconWrapper from "./common/CartIconWrapper";
+import UserMenu from "./common/UserMenu";
+import ClientNavbar from "@/components/ClientNavBar";
 
 const Navbar = async () => {
-    
   return (
-        <nav className="p-6 flex justify-between items-center pb-6 bg-zinc-900 text-white sticky top-0 z-90">
-                <div className="logo">
-                    <h1 className="text-3xl font-bold">Your Store</h1>
-                </div>
+    <nav className="bg-zinc-900 text-white sticky top-0 z-50">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        {/* Logo */}
+        <div className="text-2xl md:text-3xl font-bold">Your Store</div>
 
-                <ul className="space-x-8 font-semibold">
-                    <Link href={'/'}>Home</Link>
-                    <Link href={'/products'}>Products</Link>
-                    <Link href={'/'}>About</Link>
-                    <Link href={'/'}>Contact</Link>
-                </ul>
-                
-                <div className="flex justify-between items-center space-x-5 font-semibold">
+        {/* Desktop nav links + icons */}
+        <ul className="hidden md:flex space-x-8 font-semibold">
+          <li><Link href="/">Home</Link></li>
+          <li><Link href="/products">Products</Link></li>
+          <li><Link href="/">About</Link></li>
+          <li><Link href="/">Contact</Link></li>
+        </ul>
 
-                    <div className="icons flex items-center space-x-5">
-                        {/* cart */}
-                        <CartIconWrapper/>
+        <div className="hidden md:flex items-center space-x-5">
+          <CartIconWrapper />
+          <UserMenu />
+        </div>
 
-                        {/* user */}
-                        <div className="cursor-pointer">
-                            <UserMenu/>
-                        </div>
-                    </div>
-                </div>
-        </nav>
-  )
-}
+        {/* Client-side hamburger menu */}
+        <ClientNavbar />
+      </div>
+    </nav>
+  );
+};
 
-export default Navbar
+export default Navbar;
