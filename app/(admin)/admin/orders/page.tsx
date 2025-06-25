@@ -9,7 +9,7 @@ import { BoxIcon, DollarSign, ShoppingCart, Truck } from "lucide-react";
 
 const OrdersPage = async () => {
 
-  const orders = await fetchOrders() as OrdersAndProducts[];
+  const orders = Array.isArray(await fetchOrders()) ? await fetchOrders() as OrdersAndProducts[] : [];
   
   const totalOrders = orders.length;
   const pendingOrders = orders.filter((order) => order.status === "PENDING").length;
