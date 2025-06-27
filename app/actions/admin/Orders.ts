@@ -7,15 +7,16 @@ export async function fetchOrders () {
     try {
         
         const orders = await prisma.order.findMany({
-            orderBy: {createdAt: "desc"},
             include: {
                 products: {
                     include: {
                         Product: true
                     }
-                }
-            }
-        })
+                },
+            },
+            orderBy: {createdAt: "desc"},
+        }
+    )
 
         return orders;
 

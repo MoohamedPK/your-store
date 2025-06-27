@@ -10,6 +10,7 @@ import { updateUserCartQuantity } from "@/app/actions/cart/user/updateUserCartQu
 import { useRouter } from "next/navigation";
 
 const QuantityController = ({ quantity, size, productId }: cartProps) => {
+  
   const { data: session } = useSession();
   const dispatch = useDispatch();
   const [isPending, startTransition] = useTransition();
@@ -23,9 +24,9 @@ const QuantityController = ({ quantity, size, productId }: cartProps) => {
 
     startTransition(async () => {
       if (session) {
-        await updateUserCartQuantity({ productId, size, quantity: newQuantity });
+        await updateUserCartQuantity({ productId, size, quantity: delta });
       } else {
-        dispatch(updateQuantity({ productId, size, quantity: newQuantity }));
+        dispatch(updateQuantity({ productId, size, quantity: delta }));
         router.refresh();
       }
     });

@@ -8,8 +8,9 @@ import { calculateTotal } from "../lib/utils";
 
 const Checkout = async () => {
   const session = await getAuthSession();
-  const cart =
-    session?.user?.id ? (await getUserCart()) || [] : (await getGuestCart()) || [];
+
+  const cart = session?.user?.id ? (await getUserCart()) || [] : (await getGuestCart()) || [];
+  
   const filteredCart = cart.filter(
     (item): item is NonNullable<typeof item> => item !== null
   );

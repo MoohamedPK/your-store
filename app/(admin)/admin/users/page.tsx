@@ -4,6 +4,7 @@ import DashBoardCard from "@/components/adminCompo/orders/DashBoardCard";
 import { getNewUsers } from "@/app/actions/admin/getNewUsers";
 import { UserRound, UserRoundCheck, UserRoundPlus } from "lucide-react";
 import UsersTable from "@/components/adminCompo/users/UsersTable"
+import BackButton from "@/components/adminCompo/orders/BackButton";
 
 const page = async () => {
 
@@ -14,7 +15,7 @@ const page = async () => {
 
   return (
     <main className="flex flex-col gap-y-10 px-2 sm:px-4 md:px-8 lg:px-16 py-4">
-
+      <BackButton/>
       <div className="text-xl font-semibold">
         <h1>Users Management</h1>
       </div>

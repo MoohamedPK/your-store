@@ -9,9 +9,11 @@ import { ArrowRightIcon } from "lucide-react";
 import { calculateTotal } from "../lib/utils";
 
 const page = async () => {
+
   const session = await getAuthSession();
 
   const cart = session?.user?.id ? await getUserCart() || [] : await getGuestCart() || [];
+  console.log("client side Cart:", cart)
   const total = calculateTotal(cart.filter((item): item is NonNullable<typeof item> => item !== null))
   
     return (

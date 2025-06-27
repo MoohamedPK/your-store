@@ -11,6 +11,8 @@ import { clearCart } from "@/redux/cart/cartSlice";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Spinner from "../ui/Spinner";
+import { clearUserCart } from "@/app/actions/cart/user/clearCart";
+import { toast } from "sonner";
 
 type checkoutInputsTypes = z.infer<typeof checkoutFormSchema>;
 
@@ -57,7 +59,10 @@ const CheckoutForm = ({
       };
 
       await createOrder(order);
+      await clearUserCart();
       dispatch(clearCart());
+      toast.success("Thanks, Your Order Has Been Added Successfully (: ")
+
       router.replace("/checkout/thank-you");
       reset();
     } catch (error) {

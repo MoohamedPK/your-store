@@ -10,18 +10,18 @@ export async function updateUserCartQuantity ({productId, size, quantity}: {prod
 
     const session = await getAuthSession();
 
-    if (!session?.user?.email) return {error: "Unauthenticated"};
+    if (!session?.user?.email) return {success: false, message: "User not Authenticated"};
 
     const cart = await prisma.cart.findUnique({
-        where: {userId: session.user.id},
+        where: {userId: session.user?.id},
         include: {items: true}
     })
 
-    if (!cart) return {error: "Cart not Found"};
+    if (!cart) return {success: false, message: "Cart not Found"};
 
     const item = cart.items.find((item) => item.productId === productId && item.size === size);
 
-    if (!item) return {error: "Item not found"};
+    if (!item) return {success: false, message: "Sorry Item Not Found"};
 
     const newQuantity = item.quantity + quantity;
 
@@ -34,5 +34,5 @@ export async function updateUserCartQuantity ({productId, size, quantity}: {prod
     }
     
     revalidatePath("/cart")
-    return {success: true}
+    return {success: true, message: "Item Updated Successfully"}
 }

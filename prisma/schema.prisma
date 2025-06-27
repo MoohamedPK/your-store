@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 enum UserRole {
   USER
@@ -50,6 +51,7 @@ model Order {
   status        OrderStatus    @default(PENDING)
   subtotalPrice Float
   user          User?          @relation(fields: [userId], references: [id])
+  userId        String?
   paymentMethod PaymentMethods @default(COD)
   deliveryFee   Float
   totalPrice    Float
@@ -60,7 +62,6 @@ model Order {
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   products      OrderProduct[]
-  userId        String?
 }
 
 enum PaymentMethods {

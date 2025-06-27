@@ -37,7 +37,7 @@ const cartSlice = createSlice({
                 item.size === action.payload.size
             );
             
-            if (itemIndex !== -1) {
+            if (itemIndex >= 0 ) {
                 const newQuantity = state.items[itemIndex].quantity + action.payload.quantity;
             
                 if (newQuantity <= 0) {
@@ -51,7 +51,7 @@ const cartSlice = createSlice({
             },
 
         removeFromCart : (state,action:PayloadAction<cartProps>) => {
-            state.items = state.items.filter((item) => item.productId !== action.payload.productId && item.size !== action.payload.size)
+            state.items = state.items.filter((item) => item.productId !== action.payload.productId || item.size !== action.payload.size)
         },
 
         clearCart : (state) => {

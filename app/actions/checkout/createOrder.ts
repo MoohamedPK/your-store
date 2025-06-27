@@ -6,6 +6,7 @@ import { getAuthSession } from "@/app/lib/auth";
 import { CreateOrderInput } from "@/app/lib/definitions";
 
 export async function createOrder(order: CreateOrderInput) {
+
   const session = await getAuthSession();
   const userId = session?.user?.id ?? null;
 
@@ -20,7 +21,7 @@ export async function createOrder(order: CreateOrderInput) {
         subtotalPrice: order.subtotalPrice,
         deliveryFee: order.deliveryFee,
         totalPrice: order.totalPrice,
-        ...(userId && { User: { connect: { id: userId } } }), // Only connect user if logged in
+        ...(userId && { user : { connect: { id: userId } } }), // Only connect user if logged in
         products: {
           create: order.products.map((product) => ({
             quantity: product.quantity,

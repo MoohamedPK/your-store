@@ -4,9 +4,9 @@ import {prisma} from "@/app/lib/prisma"
 // import { auth } from "@/app/api/auth/[...nextauth]/route"
 import { getAuthSession } from "@/app/lib/auth";
 
-
 export async function getUserCart () {
 
+    try {
     const session = await getAuthSession()
     if (!session?.user?.id) return []; 
 
@@ -26,6 +26,7 @@ export async function getUserCart () {
             }
         }
     })
+    console.log("THE USER CART",userCart?.items)
 
     return (userCart?.items || []).map((item) => ({
         productId: item.productId,
@@ -36,4 +37,9 @@ export async function getUserCart () {
         quantity: item.quantity,
         sizes: item.product.sizes
     }));
+
+    } catch (error) {
+        console.log("error in getting user cart :", error);
+        return []
+    }
 }
