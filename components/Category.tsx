@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { usePathname, useSearchParams, useRouter } from "next/navigation"
 
 const Category = () => {
-
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const {replace} = useRouter();

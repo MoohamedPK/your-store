@@ -1,4 +1,4 @@
-import { getOrder } from "@/app/actions/admin/getOrder";
+import { getOrder } from "@/app/actions/admin/orders/getOrder";
 import { OrderWithDetails } from "@/app/lib/definitions";
 import BackButton from "@/components/adminCompo/orders/BackButton";
 import CustomerInfo from "@/components/adminCompo/orders/CustomerInfo";

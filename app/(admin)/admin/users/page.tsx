@@ -1,7 +1,7 @@
-import { getAllUsers } from "@/app/actions/admin/getUsers"
-import { getActiveUsers } from "@/app/actions/admin/getActiveUsers";
+import { getAllUsers } from "@/app/actions/admin/users/getUsers"
+import { getActiveUsers } from "@/app/actions/admin/users/getActiveUsers";
 import DashBoardCard from "@/components/adminCompo/orders/DashBoardCard";
-import { getNewUsers } from "@/app/actions/admin/getNewUsers";
+import { getNewUsers } from "@/app/actions/admin/users/getNewUsers";
 import { UserRound, UserRoundCheck, UserRoundPlus } from "lucide-react";
 import UsersTable from "@/components/adminCompo/users/UsersTable"
 import BackButton from "@/components/adminCompo/orders/BackButton";

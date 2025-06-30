@@ -1,4 +1,4 @@
-import { fetchOrders } from "@/app/actions/admin/Orders"
+import { fetchOrders } from "@/app/actions/admin/orders/Orders"
 import { OrdersAndProducts } from "@/app/lib/definitions";
 import { groupOrdersByStatus, groupRevenueByMonth } from "@/app/lib/utils";
 import MonthlyRevenueChart from "@/components/adminCompo/orders/charts/MonthlyRevenueChart";

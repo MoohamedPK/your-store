@@ -26,7 +26,6 @@ export async function getUserCart () {
             }
         }
     })
-    console.log("THE USER CART",userCart?.items)
 
     return (userCart?.items || []).map((item) => ({
         productId: item.productId,

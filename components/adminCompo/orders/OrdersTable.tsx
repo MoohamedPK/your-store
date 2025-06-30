@@ -1,4 +1,4 @@
-import { fetchOrders } from "@/app/actions/admin/Orders";
+import { fetchOrders } from "@/app/actions/admin/orders/Orders";
 import { OrdersAndProducts } from "@/app/lib/definitions";
 import { currancyFormatter } from "@/app/lib/formatters";
 import Link from "next/link";

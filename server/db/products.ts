@@ -5,7 +5,7 @@ export const allProducts = caching((category?: string, query?: string) => {
   return prisma.product.findMany({
     where: {
       ...(category && {
-        Category: {
+        category: {
           name: category
         }
       }),

@@ -1,12 +1,12 @@
 "use client";
 
-import { cancelOrder } from "@/app/actions/admin/cancelOrder";
+import { cancelOrder } from "@/app/actions/admin/orders/cancelOrder";
 import { X } from "lucide-react";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Spinner from "@/components/ui/Spinner";
-import { updateOrderStatus } from "@/app/actions/admin/updateOrderStatus";
+import { updateOrderStatus } from "@/app/actions/admin/orders/updateOrderStatus";
 
 
 export const CancelOrderBtn = ({orderId} : {orderId: string}) => {
