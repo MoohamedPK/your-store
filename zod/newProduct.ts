@@ -6,7 +6,7 @@ export const NewProductSchema = z.object({
   price: z.number().min(1, "Price must be at least 1"),
   sizes: z.array(z.enum(["SMALL", "MEDIUM", "LARGE"])).min(1, "Select at least one size"),
   categoryId: z.string().min(1, "Category is required"),
-  image: z.string().optional().default(""),
-  sortOrder: z.number().optional().default(0),
-  stock: z.number().optional().default(0)
+  image: z.string().min(1, "Image is required"),
+  sortOrder: z.number().min(0),
+  stock: z.number().min(0)
 });

@@ -8,11 +8,11 @@ import { Category, ProductSizes } from "@prisma/client";
 import { NewProductSchema } from "@/zod/newProduct";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
+import ImageUploader from "@/components/imageUploader/ImageUploader";
 
+type NewProductFormData = z.infer<typeof NewProductSchema>;
 
-    type NewProductFormData = z.infer<typeof NewProductSchema>;
-
-    const NewProductForm = ({categories}: {categories: Category[]}) => {
+const NewProductForm = ({ categories }: { categories: Category[] }) => {
     const {
         register,
         handleSubmit,
@@ -23,149 +23,121 @@ import { toast } from "sonner";
     } = useForm<NewProductFormData>({
         resolver: zodResolver(NewProductSchema),
         defaultValues: {
-        name: "",
-        description: "",
         sizes: [] as ProductSizes[],
-        stock: 0,
-        price: 0,
-        sortOrder: 0,
-        image: "",
-        categoryId: ""
         }
     });
 
     const selectedSizes = watch("sizes");
-    
-    const sizes = ["SMALL", "MEDIUM", "LARGE"] as const;
+    const sizes = ["SMALL", "MEDIUM", "LARGE"] as ProductSizes[];
 
     const toggleSize = (size: typeof sizes[number]) => {
         const newSizes = selectedSizes.includes(size)
-        ? selectedSizes.filter(s => s !== size)
+        ? selectedSizes.filter((s) => s !== size)
         : [...selectedSizes, size];
         setValue("sizes", newSizes);
     };
 
     const onSubmit = async (data: NewProductFormData) => {
-        try {
-            const formData = new FormData();
-            formData.append("name", data.name);
-            formData.append("description", data.description);
-            formData.append("price", data.price.toString());
-            formData.append("stock", data.stock.toString());
-            formData.append("categoryId", data.categoryId);
-            formData.append("image", data.image);
-            formData.append("sortOrder", data.sortOrder.toString());
-            data.sizes.forEach(size => formData.append("sizes", size));
-        
-            const result = await createNewProduct(formData);
-            
-            if (result?.success === false) {
-              alert(result.message || "Failed to create product");
+
+        const formData = new FormData();
+        formData.append("name", data.name);
+        formData.append("description", data.description);
+        formData.append("price", data.price.toString());
+        formData.append("stock", data.stock.toString());
+        formData.append("categoryId", data.categoryId);
+        formData.append("image", data.image);
+        formData.append("sortOrder", data.sortOrder.toString());
+        data.sizes.forEach((size) => formData.append("sizes", size));
+
+        const result = await createNewProduct(formData);
+
+            if (!result?.success) {
+                reset();
+                toast.success("Product Created Successfully");
+                redirect("/admin/products")
             }
 
-            reset()
-            toast.success("Product Created Succssfully")
-            redirect("/admin/products")
-          } catch (error) {
-            console.error("Error submitting form:", error);
-            alert("An unexpected error occurred");
-          }
-        };
+    };
 
     return (
-        <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
-        <div className="text-2xl font-bold mb-8 text-gray-800">
+        <div className="mx-auto p-4 sm:p-6 bg-neutral-400/60 rounded-lg shadow-md w-full">
+        <div className="text-xl sm:text-2xl font-bold mb-6 text-gray-800">
             <h1>Add New Product</h1>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {/* Product Details Section */}
-            <div className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-10">
+            {/* Product Details */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="flex flex-col space-y-2">
-                <label htmlFor="name" className="text-sm font-medium text-gray-700">
-                Product Name
-                </label>
+                <label htmlFor="name" className="text-sm font-medium text-gray-700">Product Name</label>
                 <input
                 {...register("name")}
                 id="name"
-                className={`px-4 py-2 border rounded-lg  ${
+                className={`px-4 py-2 border rounded-lg w-full ${
                     errors.name ? "border-red-500" : "border-gray-300"
                 }`}
                 placeholder="e.g., Luxury Gold Pendant"
                 />
-                {errors.name && (
-                <p className="text-red-500 text-sm">{errors.name.message}</p>
-                )}
+                {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
             </div>
 
             <div className="flex flex-col space-y-2">
-                <label htmlFor="description" className="text-sm font-medium text-gray-700">
-                Description
-                </label>
-                <textarea
-                {...register("description")}
-                id="description"
-                rows={4}
-                className={`px-4 py-2 border rounded-lg ${
-                    errors.description ? "border-red-500" : "border-gray-300"
-                }`}
-                placeholder="Detailed product description..."
-                />
-                {errors.description && (
-                <p className="text-red-500 text-sm">{errors.description.message}</p>
-                )}
-            </div>
-
-            <div className="flex flex-col space-y-2">
-                <label htmlFor="price" className="text-sm font-medium text-gray-700">
-                Price (MAD)
-                </label>
+                <label htmlFor="price" className="text-sm font-medium text-gray-700">Price (MAD)</label>
                 <input
                 {...register("price", { valueAsNumber: true })}
                 id="price"
                 type="number"
                 step="0.01"
                 min="0"
-                className={`px-4 py-2 border rounded-lg  ${
+                className={`px-4 py-2 border rounded-lg w-full ${
                     errors.price ? "border-red-500" : "border-gray-300"
                 }`}
                 placeholder="0.00"
                 />
-                {errors.price && (
-                <p className="text-red-500 text-sm">{errors.price.message}</p>
-                )}
+                {errors.price && <p className="text-red-500 text-sm">{errors.price.message}</p>}
             </div>
             </div>
 
-            {/* Inventory Section */}
-            <div className="space-y-6">
             <div className="flex flex-col space-y-2">
-                <label className="text-sm font-medium text-gray-700">Available Sizes</label>
-                <div className="flex space-x-3">
+            <label htmlFor="description" className="text-sm font-medium text-gray-700">Description</label>
+            <textarea
+                {...register("description")}
+                id="description"
+                rows={4}
+                className={`px-4 py-2 border rounded-lg ${
+                errors.description ? "border-red-500" : "border-gray-300"
+                }`}
+                placeholder="Detailed product description..."
+            />
+            {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
+            </div>
+
+            {/* Sizes */}
+            <div className="flex flex-col space-y-2">
+            <label className="text-sm font-medium text-gray-700">Available Sizes</label>
+            <div className="flex flex-wrap gap-3">
                 {sizes.map((size) => (
-                    <button
+                <button
                     key={size}
                     type="button"
                     onClick={() => toggleSize(size)}
                     className={`px-4 py-2 rounded-full border text-sm font-medium transition-all ${
-                        selectedSizes.includes(size)
+                    selectedSizes.includes(size)
                         ? "bg-blue-500 text-white border-blue-500"
                         : "bg-white text-gray-700 border-gray-300 hover:border-blue-500"
                     }`}
-                    >
+                >
                     {size}
-                    </button>
+                </button>
                 ))}
-                </div>
-                {errors.sizes && (
-                <p className="text-red-500 text-sm">{errors.sizes.message}</p>
-                )}
+            </div>
+            {errors.sizes && <p className="text-red-500 text-sm">{errors.sizes.message}</p>}
             </div>
 
+            {/* Stock & Category */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="flex flex-col space-y-2">
-                <label htmlFor="stock" className="text-sm font-medium text-gray-700">
-                Stock Quantity
-                </label>
+                <label htmlFor="stock" className="text-sm font-medium text-gray-700">Stock Quantity</label>
                 <input
                 {...register("stock", { valueAsNumber: true })}
                 id="stock"
@@ -175,15 +147,11 @@ import { toast } from "sonner";
                     errors.stock ? "border-red-500" : "border-gray-300"
                 }`}
                 />
-                {errors.stock && (
-                <p className="text-red-500 text-sm">{errors.stock.message}</p>
-                )}
+                {errors.stock && <p className="text-red-500 text-sm">{errors.stock.message}</p>}
             </div>
 
             <div className="flex flex-col space-y-2">
-                <label htmlFor="category" className="text-sm font-medium text-gray-700">
-                Category
-                </label>
+                <label htmlFor="category" className="text-sm font-medium text-gray-700">Category</label>
                 <select
                 {...register("categoryId")}
                 id="category"
@@ -202,6 +170,11 @@ import { toast } from "sonner";
                 <p className="text-red-500 text-sm">{errors.categoryId.message}</p>
                 )}
             </div>
+            </div>
+
+            {/* Image Upload */}
+            <div>
+            <ImageUploader onUploadSuccess={(url) => setValue("image", url)} />
             </div>
 
             {/* Submit Button */}

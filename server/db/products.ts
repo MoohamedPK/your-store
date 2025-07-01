@@ -19,6 +19,9 @@ export const allProducts = caching((category?: string, query?: string) => {
     include: {
       orders: true,
       sizes: true
+    },
+    orderBy: {
+      createdAt: "desc"
     }
   });
 }, ["all-products"], { revalidate: 3600 });

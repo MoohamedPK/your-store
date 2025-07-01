@@ -13,6 +13,12 @@ function createPrismaClient() {
       'error',
       'info'
     ],
+    __internal: {
+      engine: {
+        enableQueryEngine: true,
+        experimental_disablePreparedStatement: true,
+      },
+    } as never, // prevent TS type issue
   });
 
   // Add connection middleware

@@ -8,7 +8,7 @@ const page = async () => {
     const products = await allProducts()
 
     return (
-    <div>
+    <div className="">
       <BackButton/>
       <div className="flex justify-between items-center mb-6 mt-3">
         <h1 className="text-2xl font-bold">Products</h1>
@@ -17,22 +17,22 @@ const page = async () => {
         </Link>
       </div>
 
-      <table className="w-full border-collapse border border-zinc-300 text-sm">
+      <table className="w-full text-sm mt-10 bg-neutral-400/60">
         <thead className="bg-zinc-100">
           <tr>
-            <th className="p-2 border">Name</th>
-            <th className="p-2 border">Price</th>
-            <th className="p-2 border">In Stock</th>
-            <th className="p-2 border">Actions</th>
+            <th className="p-2 ">Name</th>
+            <th className="p-2 ">Price</th>
+            <th className="p-2 ">In Stock</th>
+            <th className="p-2 ">Actions</th>
           </tr>
         </thead>
         <tbody>
           {products.map((product) => (
             <tr key={product.id} className="text-center hover:bg-zinc-50">
-              <td className="p-2 border">{product.name}</td>
-              <td className="p-2 border">MAD {product.price.toFixed(2)}</td>
-              <td className="p-2 border">{product.stock}</td>
-              <td className="p-2 border space-x-2">
+              <td className="p-2">{product.name}</td>
+              <td className="p-2 ">MAD {product.price.toFixed(2)}</td>
+              <td className="p-2 ">{product.stock}</td>
+              <td className="p-2 space-x-2">
                 <Link href={`/admin/products/${product.id}/edit`} className="text-blue-600 hover:underline">
                   Edit
                 </Link>

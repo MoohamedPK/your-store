@@ -8,11 +8,13 @@ export async function getUserCart () {
 
     try {
     const session = await getAuthSession()
-    if (!session?.user?.id) return []; 
+    const userId = session?.user.id
+
+    if (!userId) return []
 
     const userCart = await prisma.cart.findUnique({
         where: {
-            userId: session?.user.id
+            userId,
         },
         include: {
             items: {
