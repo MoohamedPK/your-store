@@ -11,13 +11,13 @@ const Product = ({ product }: { product: CartProductsType }) => {
 
   return (
     <div className="w-full px-4 py-6 default-border rounded-xl group shadow-sm bg-white dark:bg-zinc-800 hover:shadow-md transition-shadow duration-300">
-      <Link href={`/products/${id}`} key={id} className="space-y-3 block">
+      <Link href={`/products/${id}`} key={id} className="space-y- block">
         <div className="aspect-square relative w-full">
           <Image
             src={image}
             alt={name}
-            width={300}
-            height={300}
+            width={250}
+            height={250}
             className="object-contain mx-auto group-hover:scale-95 transition-transform duration-300"
           />
         </div>

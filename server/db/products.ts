@@ -6,7 +6,7 @@ export const allProducts = caching((category?: string, query?: string) => {
     where: {
       ...(category && {
         category: {
-          name: category
+          slug: category
         }
       }),
       ...(query && {

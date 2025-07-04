@@ -1,4 +1,4 @@
-import Category from "@/components/Category";
+import CategoryNav from "@/components/CategoryNav";
 import Search from "@/components/common/Search";
 import ProductsGrid from "@/components/ProductsGrid";
 import { Suspense } from "react";
@@ -23,7 +23,7 @@ const Products = async (props: {
 
         {/* Category Filters */}
         <div>
-          <Category />
+          <CategoryNav />
         </div>
 
         {/* Search Result Heading */}
@@ -35,7 +35,9 @@ const Products = async (props: {
           )}
 
           {/* Products Grid */}
-          <ProductsGrid category={category} query={query} />
+          <div className="container">
+            <ProductsGrid category={category} query={query} />
+          </div>
         </Suspense>
       </div>
     </main>

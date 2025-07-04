@@ -1,4 +1,5 @@
 import BackButton from "@/components/adminCompo/orders/BackButton";
+import DeleteProductButton from "@/components/common/DeleteButton";
 import { allProducts } from "@/server/db/products";
 import Link from "next/link";
 
@@ -12,7 +13,7 @@ const page = async () => {
       <BackButton/>
       <div className="flex justify-between items-center mb-6 mt-3">
         <h1 className="text-2xl font-bold">Products</h1>
-        <Link href="/admin/products/new" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        <Link href="/admin/products/new" className="bg-zinc-800 text-white px-4 py-2 rounded hover:bg-zinc-800/85">
           + Add Product
         </Link>
       </div>
@@ -33,10 +34,11 @@ const page = async () => {
               <td className="p-2 ">MAD {product.price.toFixed(2)}</td>
               <td className="p-2 ">{product.stock}</td>
               <td className="p-2 space-x-2">
-                <Link href={`/admin/products/${product.id}/edit`} className="text-blue-600 hover:underline">
+                <Link href={`/admin/products/${product.id}/update`} className="text-blue-600 hover:underline">
                   Edit
                 </Link>
-                <button className="text-red-600 hover:underline">Delete</button>
+                {/* <button className="text-red-600 hover:underline">Delete</button> */}
+                <DeleteProductButton id={product.id}/>
               </td>
             </tr>
           ))}

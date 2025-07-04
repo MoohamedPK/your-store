@@ -18,7 +18,6 @@ export async function createNewProduct(formData: FormData) {
   };
 
   const result = NewProductSchema.safeParse(rawData);
-  console.log(result.data)
   if (!result.success) {
     return {
       success: false,
@@ -26,6 +25,8 @@ export async function createNewProduct(formData: FormData) {
       message: "Validation failed"
     };
   }
+
+  console.log("adding prod to db ...")
 
   try {
     await prisma.$transaction(async (tx) => {
@@ -52,6 +53,8 @@ export async function createNewProduct(formData: FormData) {
         }))
       });
     });
+
+    console.log("product added to db ");
 
     revalidatePath("/admin/products");
   } catch (error) {

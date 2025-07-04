@@ -3,18 +3,20 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createNewProduct } from "@/app/actions/admin/products/createProduct";
 import { ProductSizes } from "@prisma/client";
 import { NewProductSchema } from "@/zod/newProduct";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 import ImageUploader from "@/components/imageUploader/ImageUploader";
+import { ProductAndSizes } from "@/app/lib/definitions";
+import Image from "next/image";
+import { updateProduct } from "@/app/actions/admin/products/updateProduct";
 import { useState } from "react";
 import Spinner from "@/components/ui/Spinner";
 
 type NewProductFormData = z.infer<typeof NewProductSchema>;
 
-const NewProductForm = ({ categories }: {categories: {id: string, name: string, slug: string}[]}) => {
+const UpdateProductForm = ({ categories, product }: {categories: {name: string, id: string} [], product: ProductAndSizes}) => {
 
     const [loading, setLoading] = useState<boolean>();
     const {
@@ -27,8 +29,14 @@ const NewProductForm = ({ categories }: {categories: {id: string, name: string, 
     } = useForm<NewProductFormData>({
         resolver: zodResolver(NewProductSchema),
         defaultValues: {
-        sizes: [] as ProductSizes[],
-        sortOrder: 0
+        sizes: product.sizes.map(s => s.name) as ProductSizes[],
+        name: product.name,
+        description: product.description,
+        image: product.image,
+        price: product.price,
+        stock: product.stock,
+        sortOrder: product.sortOrder,
+        categoryId: product.categoryId ?? undefined
         }
     });
 
@@ -43,7 +51,7 @@ const NewProductForm = ({ categories }: {categories: {id: string, name: string, 
     };
 
     const onSubmit = async (data: NewProductFormData) => {
-        
+        console.log(data)
         const formData = new FormData();
         formData.append("name", data.name);
         formData.append("description", data.description);
@@ -54,28 +62,27 @@ const NewProductForm = ({ categories }: {categories: {id: string, name: string, 
         formData.append("sortOrder", data.sortOrder.toString());
         data.sizes.forEach((size) => formData.append("sizes", size));
 
-        
-        
         try {
             setLoading(true)
-            const result = await createNewProduct(formData);
+            const result = await updateProduct(product.id, formData);
             if (result?.success) {
                 reset();
-                toast.success("Product Created Successfully");
+                toast.success(result.message);
                 redirect("/admin/products")
             }
 
         } catch (error) {
-            console.log(error);
+            console.log(error)
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     };
 
     return (
         <div className="mx-auto p-4 sm:p-6 bg-neutral-400/60 rounded-lg shadow-md w-full">
-        <div className="text-xl sm:text-2xl font-bold mb-6 text-gray-800">
-            <h1>Add New Product</h1>
+        <div className=" mb-6 text-gray-800 space-y-2">
+            <h1 className="text-xl sm:text-2xl font-bold">Update Product</h1>
+            <p className="text-sm text-gray-800/70">Review and modify the details for your product, ensuring all information is accurate and up-to-date.</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-10">
@@ -164,20 +171,6 @@ const NewProductForm = ({ categories }: {categories: {id: string, name: string, 
             </div>
 
             <div className="flex flex-col space-y-2">
-                <label htmlFor="sortOrder" className="text-sm font-medium text-gray-700">sort order</label>
-                <input
-                {...register("sortOrder", { valueAsNumber: true })}
-                id="sortOrder"
-                type="number"
-                min="0"
-                className={`px-4 py-2 border rounded-lg ${
-                    errors.sortOrder ? "border-red-500" : "border-gray-300"
-                }`}
-                />
-                {errors.sortOrder && <p className="text-red-500 text-sm">{errors.sortOrder.message}</p>}
-            </div>
-
-            <div className="flex flex-col space-y-2">
                 <label htmlFor="category" className="text-sm font-medium text-gray-700">Category</label>
                 <select
                 {...register("categoryId")}
@@ -203,14 +196,29 @@ const NewProductForm = ({ categories }: {categories: {id: string, name: string, 
             <div>
             <ImageUploader onUploadSuccess={(url) => setValue("image", url)} />
             </div>
+            {watch("image") ? (
+            <div className="mt-4">
+                <p className="text-sm text-gray-600 mb-1">Current Image Preview:</p>
+                <Image src={watch("image")} alt="Current Product" width={100} height={100} className=" object-cover rounded" />
+            </div>
+            ): (
+                <p>Image is not Provided</p>
+            )}
 
             {/* Submit Button */}
-            <div className="flex justify-end">
+            <div className="flex justify-end space-x-3">
             <button
                 type="submit"
-                className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+                className="cursor-pointer px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
             >
-                {loading ? <Spinner/> : "Add Product"}
+                {loading ? <Spinner/> : "Save Changes"}
+            </button>
+            <button
+                onClick={window.history.back}
+                type="submit"
+                className="cursor-pointer px-6 py-2 bg-gray-500/60 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+            >
+                Cancel
             </button>
             </div>
         </form>
@@ -218,4 +226,4 @@ const NewProductForm = ({ categories }: {categories: {id: string, name: string, 
     );
 };
 
-export default NewProductForm;
+export default UpdateProductForm;

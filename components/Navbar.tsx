@@ -1,5 +1,3 @@
-// app/components/Navbar.tsx (Server Component)
-
 import Link from "next/link";
 import CartIconWrapper from "./common/CartIconWrapper";
 import UserMenu from "./common/UserMenu";
@@ -13,20 +11,26 @@ const Navbar = async () => {
         <div className="text-2xl md:text-3xl font-bold">Your Store</div>
 
         {/* Desktop nav links + icons */}
-        <ul className="hidden md:flex space-x-8 font-semibold">
-          <li><Link href="/">Home</Link></li>
-          <li><Link href="/products">Products</Link></li>
-          <li><Link href="/">About</Link></li>
-          <li><Link href="/">Contact</Link></li>
-        </ul>
+        <div className="hidden md:flex items-center gap-8">
+          <ul className="flex space-x-8 font-semibold">
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="/products">Products</Link></li>
+            <li><Link href="/about">About</Link></li>
+            <li><Link href="/contact">Contact</Link></li>
+          </ul>
 
-        <div className="hidden md:flex items-center space-x-5">
-          <CartIconWrapper />
-          <UserMenu />
+          <div className="flex items-center space-x-5">
+            <CartIconWrapper />
+            <UserMenu />
+          </div>
         </div>
 
-        {/* Client-side hamburger menu */}
-        <ClientNavbar />
+        {/* Mobile icons and menu */}
+        <div className="flex md:hidden items-center gap-4">
+          <CartIconWrapper />
+          <UserMenu />
+          <ClientNavbar />
+        </div>
       </div>
     </nav>
   );

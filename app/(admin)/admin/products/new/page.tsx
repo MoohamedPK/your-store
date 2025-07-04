@@ -4,7 +4,15 @@ import NewProductForm from "@/components/adminCompo/product/NewProductForm"
 import RecentAddedProducts from "@/components/adminCompo/product/RecentAddedProducts"
 
 const page = async () => {
-  const categories = await prisma.category.findMany()
+  
+  const categories = await prisma.category.findMany({
+    orderBy: {name: "asc"},
+    select: {
+      id: true,
+      name: true,
+      slug: true
+    }
+  })
 
   return (
     <div className="flex flex-col space-y-5 p-4">

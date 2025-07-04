@@ -4,8 +4,7 @@ import { getUserCart } from "@/app/actions/cart/user/getUserCart";
 import { getGuestCart } from "@/app/actions/cart/guest/getGuestCart";
 import { CartIcon } from "../CartIcon";
 
-const CartIconWrapper = async () => {
-
+const CartIconWrapper = async ({}) => {
     const session = await getAuthSession();
     const cart = session?.user?.id ? await getUserCart() || []: await getGuestCart() || [];
 

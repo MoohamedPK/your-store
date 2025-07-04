@@ -33,11 +33,9 @@ export async function getActiveUsers () {
             
         }
         })
-        console.log("active users:", activeUsers)
         return activeUsers;
         
     } catch (error) {
-        console.log(error);
         return {success: false, message: error}
     }
 
