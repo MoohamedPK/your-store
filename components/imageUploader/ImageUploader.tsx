@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { CldUploadWidget } from "next-cloudinary"
 import { ImagePlus } from "lucide-react"
+import Image from "next/image"
 
 type ProductImageUploaderProps = {
   onUploadSuccess: (url: string) => void
@@ -38,7 +39,7 @@ const ImageUploader = ({ onUploadSuccess }: ProductImageUploaderProps) => {
               className="flex flex-col items-center justify-center w-full h-56 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-gray-500 transition"
             >
               {previewUrl ? (
-                <img
+                <Image
                   src={previewUrl}
                   alt="Uploaded"
                   className="h-full object-contain"
