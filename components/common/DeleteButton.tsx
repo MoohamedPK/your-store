@@ -4,16 +4,16 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTitle, DialogHeader, DialogFooter} from "@/components/ui/dialog"
 import { toast } from "sonner"
-import { deleteCategory } from "@/app/actions/categories/deleteCategory"
+// import { deleteCategory } from "@/app/actions/categories/deleteCategory"
 
-const DeleteProductButton = ({ id }: {id:string}) => {
+const DeleteButton = ({ id, action}: {id:string, action: (id: string) => Promise<{success: boolean, message?: string}>}) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const handleDelete = async () => {
     setLoading(true)
     try {
-      const result = await deleteCategory(id)
+      const result = await action(id)
 
       if (result.success) return toast.success(result.message)
 
@@ -51,4 +51,4 @@ const DeleteProductButton = ({ id }: {id:string}) => {
   )
 }
 
-export default DeleteProductButton
+export default DeleteButton

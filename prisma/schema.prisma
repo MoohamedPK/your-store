@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 enum UserRole {
@@ -38,7 +38,7 @@ model Product {
   sizes       Size[]
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
-  category    Category?       @relation(fields: [categoryId], references: [id])
+  category    Category?      @relation(fields: [categoryId], references: [id])
   categoryId  String?
   stock       Int            @default(0)
   orders      OrderProduct[]
@@ -84,7 +84,7 @@ model OrderProduct {
   orderId   String
   User      User?   @relation(fields: [userId], references: [id]) // optional in the case of the user is a guest
   userId    String?
-  Product   Product @relation(fields: [productId], references: [id])
+  Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
 }
 
@@ -94,7 +94,7 @@ model Category {
   slug      String    @unique @default("")
   products  Product[]
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
 }
 
 model Size {

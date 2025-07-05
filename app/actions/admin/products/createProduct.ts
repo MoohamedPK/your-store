@@ -54,7 +54,6 @@ export async function createNewProduct(formData: FormData) {
       });
     });
 
-    console.log("product added to db ");
 
     revalidatePath("/admin/products");
   } catch (error) {

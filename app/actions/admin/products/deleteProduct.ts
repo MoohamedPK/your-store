@@ -7,6 +7,11 @@ export async function deleteProduct (productId: string) {
 
     try {
         await prisma.$transaction([
+          prisma.orderProduct.deleteMany({
+            where: {
+              productId
+            }
+          }),
           prisma.size.deleteMany({ where: { productId } }),
           prisma.product.delete({ where: { id: productId } }),
         ]);

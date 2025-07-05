@@ -35,7 +35,7 @@ const Products = async (props: {
           )}
 
           {/* Products Grid */}
-          <div className="container">
+          <div className="">
             <ProductsGrid category={category} query={query} />
           </div>
         </Suspense>

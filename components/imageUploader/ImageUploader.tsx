@@ -41,6 +41,8 @@ const ImageUploader = ({ onUploadSuccess }: ProductImageUploaderProps) => {
               {previewUrl ? (
                 <Image
                   src={previewUrl}
+                  width={300}
+                  height={300}
                   alt="Uploaded"
                   className="h-full object-contain"
                 />

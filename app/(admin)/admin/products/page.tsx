@@ -1,7 +1,9 @@
 import BackButton from "@/components/adminCompo/orders/BackButton";
-import DeleteProductButton from "@/components/common/DeleteButton";
 import { allProducts } from "@/server/db/products";
+// import DeleteProduct from "@/components/common/DeleteProduct";
+import DeleteButton from "@/components/common/DeleteButton";
 import Link from "next/link";
+import { deleteProduct } from "@/app/actions/admin/products/deleteProduct";
 
 
 const page = async () => {
@@ -38,7 +40,7 @@ const page = async () => {
                   Edit
                 </Link>
                 {/* <button className="text-red-600 hover:underline">Delete</button> */}
-                <DeleteProductButton id={product.id}/>
+                <DeleteButton id={product.id} action={deleteProduct}/>
               </td>
             </tr>
           ))}

@@ -1,6 +1,7 @@
 import { prisma } from "@/app/lib/prisma"
 import Link from "next/link"
-import DeleteProductButton from "../../common/DeleteButton"
+import DeleteButton from "../../common/DeleteButton"
+import { deleteCategory } from "@/app/actions/categories/deleteCategory"
 
 const CategoriesTable = async () => {
 
@@ -45,7 +46,7 @@ const CategoriesTable = async () => {
                     <td className="text-gray-500">{category.updatedAt.toLocaleDateString()}</td>
                     <td>
                         <div className="flex items-center space-x-3">
-                            <DeleteProductButton id={category.id}/>
+                            <DeleteButton id={category.id} action={deleteCategory}/>
                         </div>
                     </td>
                     </tr>
