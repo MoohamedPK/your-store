@@ -1,6 +1,7 @@
 import { fetchOrders } from "@/app/actions/admin/orders/Orders"
 import { OrdersAndProducts } from "@/app/lib/definitions";
 import { groupOrdersByStatus, groupRevenueByMonth } from "@/app/lib/utils";
+import BackButton from "@/components/adminCompo/orders/BackButton";
 import MonthlyRevenueChart from "@/components/adminCompo/orders/charts/MonthlyRevenueChart";
 import OrdersStatusChart from "@/components/adminCompo/orders/charts/OrdersStatusChart";
 import DashBoardCard from "@/components/adminCompo/orders/DashBoardCard";
@@ -23,7 +24,7 @@ const OrdersPage = async () => {
 
   return (
     <main className="flex flex-col gap-y-10 px-2 sm:px-4 md:px-8 lg:px-16 py-4">
-
+      <BackButton/>
       <div className="text-xl font-semibold">
         <h1>Orders Overview</h1>
       </div>

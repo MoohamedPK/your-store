@@ -18,10 +18,10 @@ const CategoriesTable = async () => {
     return (
     <main className="w-full">
 
-            <div className="border-2 border-black/30 rounded-lg p-4 md:p-6 overflow-x-auto">
+            <div className="p-4 md:p-6 overflow-x-auto">
             <div className="flex justify-between items-center mb-6 mt-3">
                 <h1 className="text-2xl font-bold">Categories</h1>
-                <Link href="/admin/categories/new" className="bg-zinc-800 text-white px-4 py-2 rounded hover:bg-zinc-800/85">
+                <Link href="/admin/categories/new" className="bg-zinc-800 text-white px-2 py-1 md:px-4 md:py-2 text-sm rounded hover:bg-zinc-800/85">
                     + Add Category
                 </Link>
             </div>
