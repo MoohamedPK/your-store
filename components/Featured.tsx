@@ -1,4 +1,4 @@
-import HeadingTitle from "@/components/common/HeadingTitle"
+import HeadingTitle from "@/components/animatedComponent/HeadingTitle"
 import Product from "./common/Product";
 import { featuredProducts } from "@/server/db/products";
 
@@ -13,7 +13,7 @@ const Featured = async() => {
       
       <div className="mt-15 grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 flex-nowrap gap-3 container">
         {featuredProds.map((product) => (
-          <Product key={product.id} product={product} />
+          <Product key={product.id} product={product}/>
         ))}
         
       </div>

@@ -8,7 +8,7 @@ const Navbar = async () => {
     <nav className="bg-zinc-900 text-white sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
-        <div className="text-2xl md:text-3xl font-bold">Your Store</div>
+        <div className="text-2xl md:text-3xl font-bold">ShopHub</div>
 
         {/* Desktop nav links + icons */}
         <div className="hidden md:flex items-center gap-8">
