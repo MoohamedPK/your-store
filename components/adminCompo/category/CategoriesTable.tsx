@@ -7,12 +7,12 @@ const CategoriesTable = async () => {
 
     const categories = await prisma.category.findMany({
         orderBy: {name: "asc"},
-
+        
         select: {
             id: true,
             name: true,
-            updatedAt: true,
             products: true,
+            updatedAt: true
         }
     })
 
