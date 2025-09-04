@@ -7,41 +7,128 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  USER
+  ADMIN
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  password      String
+  image         String?
+  phone         String?
+  address       String?
+  role          UserRole       @default(USER)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  orders        Order[]
+  Cart          Cart?
+  orderProducts OrderProduct[]
+}
+
 model Product {
-  id          Int      @id @default(autoincrement())
+  id          String         @id @default(cuid())
   name        String
   description String
-  price       Float
+  price       Int
   image       String // store Cloudinary URL here
-  order       Int
+  sortOrder   Int
   sizes       Size[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  Category    Category? @relation(fields: [categoryId], references: [id])
-  categoryId  Int?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  category    Category?      @relation(fields: [categoryId], references: [id])
+  categoryId  String?
+  stock       Int            @default(0)
+  orders      OrderProduct[]
+  CartItem    CartItem[]
+}
+
+model Order {
+  id            String         @id @default(cuid())
+  paid          Boolean        @default(false)
+  status        OrderStatus    @default(PENDING)
+  subtotalPrice Float
+  user          User?          @relation(fields: [userId], references: [id])
+  userId        String?
+  paymentMethod PaymentMethods @default(COD)
+  deliveryFee   Float
+  totalPrice    Float
+  userEmail     String
+  phone         String
+  streetAddress String
+  city          String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  products      OrderProduct[]
+}
+
+enum PaymentMethods {
+  COD
+  ONLINE
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model OrderProduct {
+  id        String  @id @default(cuid())
+  quantity  Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String
+  User      User?   @relation(fields: [userId], references: [id]) // optional in the case of the user is a guest
+  userId    String?
+  Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
 }
 
 model Category {
-  id       Int          @id @default(autoincrement())
-  name     Categories[]
-  products Product[]
+  id        String    @id @default(cuid())
+  name      String    @unique
+  slug      String    @unique @default("")
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
 }
 
 model Size {
-  id        Int          @id @default(autoincrement())
+  id        String       @id @default(cuid())
   name      ProductSizes
-  price     Float
-  product   Product?      @relation(fields: [productId], references: [id])
-  productId Int?
-}
+  product   Product      @relation(fields: [productId], references: [id])
+  productId String
 
-enum Categories {
-  accessories
-  digital
+  @@unique([name, productId])
 }
 
 enum ProductSizes {
-  SAMLL
+  SMALL
   MEDIUM
   LARGE
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  user      User       @relation(fields: [userId], references: [id])
+  userId    String     @unique
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id        String       @id @default(cuid())
+  product   Product      @relation(fields: [productId], references: [id])
+  productId String
+  cart      Cart?        @relation(fields: [cartId], references: [id])
+  cartId    String
+  quantity  Int          @default(1)
+  size      ProductSizes
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 }

@@ -1,32 +1,47 @@
-import Product from "@/components/Product";
-import { prisma } from "@/lib/prisma"
+import CategoryNav from "@/components/CategoryNav";
+import Search from "@/components/common/Search";
+import ProductsGrid from "@/components/ProductsGrid";
+import { Suspense } from "react";
 
-const Products = async() => {
-
-  const products = await prisma.product.findMany({});
+const Products = async (props: {
+  searchParams?: Promise<{
+    query?: string;
+    category?: string;
+  }>;
+}) => {
+  const searchParams = await props.searchParams;
+  const query = searchParams?.query || "";
+  const category = searchParams?.category || "";
 
   return (
-    <main className="h-screen container mt-10">
-      <div>
-          <div className="categories flex justify-center items-center space-x-10">
-            <div className="border border-black px-5 py-2 rounded-full button-hover cursor-pointer hover:bg-zinc-900 hover:text-white transition-all duration-300">
-              <h1>Accessories</h1>
-            </div>
+    <main className="min-h-screen container px-4 mt-10">
+      <div className="flex flex-col gap-6">
+        {/* Search Bar */}
+        <div>
+          <Search />
+        </div>
 
-            <div className="border border-black px-5 py-2 rounded-full button-hover cursor-pointer hover:bg-zinc-900 hover:text-white transition-all duration-300">
-              <h1>Digital</h1>
-            </div>
+        {/* Category Filters */}
+        <div>
+          <CategoryNav />
+        </div>
 
+        {/* Search Result Heading */}
+        <Suspense fallback={<p>Loading...</p>}>
+          {query && (
+            <h1 className="text-lg sm:text-xl md:text-2xl font-semibold">
+              Search results for <span className="italic">{query}</span>
+            </h1>
+          )}
+
+          {/* Products Grid */}
+          <div className="">
+            <ProductsGrid category={category} query={query} />
           </div>
-
-          <div className="products grid grid-cols-3 gap-5 mt-20">
-            {products.map((product) => (
-              <Product product={product} key={product.id}/>
-            ))}
-          </div>
+        </Suspense>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;

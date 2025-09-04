@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "./globals.css"
 import Navbar from "@/components/Navbar";
-import Footer from "@/common/Footer";
+import Footer from "@/components/common/Footer";
 import { StoreProvider } from "@/redux/StoreProvider";
+import CartCookie from "@/components/common/CartCookie";
+import { Toaster } from "sonner";
+import AuthProvider from "./providers/AuthProvider";
+// import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,8 +35,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-between `}
       >
           <StoreProvider>
-            <Navbar/>
-            {children}
+            <AuthProvider>
+              <CartCookie/>
+              <Navbar/>
+              {children}
+              <Toaster/>
+            </AuthProvider>
           </StoreProvider>
         <Footer/>
       </body>

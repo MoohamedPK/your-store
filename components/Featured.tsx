@@ -1,22 +1,18 @@
-import HeadingTitle from "@/common/HeadingTitle"
-import { prisma } from "@/lib/prisma"
-import Product from "./Product";
+import HeadingTitle from "@/components/animatedComponent/HeadingTitle"
+import Product from "./common/Product";
+import { featuredProducts } from "@/server/db/products";
 
 const Featured = async() => {
-    const prods = await prisma.product.findMany({
-      orderBy: {
-        createdAt: "desc" // take the last created prods 
-      },
-      take: 3, // give me a limit of 5 prods
-      
-    });
-
+    
+  const featuredProds = await featuredProducts()
+  
   return (
     <main className="h-[130dvh] relative">
       
       <HeadingTitle title="Featured Products"/>
-      <div className="mt-15 grid grid-cols-3 gap-3 container">
-        {prods.map((product) => (
+      
+      <div className="mt-15 grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 flex-nowrap gap-3 container">
+        {featuredProds.map((product) => (
           <Product key={product.id} product={product}/>
         ))}
         

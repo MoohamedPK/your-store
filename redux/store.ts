@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartSlice from "@/redux/cart/cartSlice"
-import {persistStore, persistReducer,  FLUSH, REHYDRATE, REGISTER, PAUSE, PERSIST, PURGE} from "redux-persist"
+import {persistStore, persistReducer ,FLUSH, REHYDRATE, REGISTER, PAUSE, PERSIST, PURGE} from "redux-persist"
 import { combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
@@ -15,6 +15,7 @@ const rootReducer = combineReducers({
 })
 
 const store = configureStore({
+    
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => 
         getDefaultMiddleware({

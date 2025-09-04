@@ -1,0 +1,7 @@
+-- CreateEnum
+CREATE TYPE "OrderStatus" AS ENUM ('PENDING', 'CONFIRMED', 'SHIPPED', 'DELIVERED', 'CANCELLED');
+
+-- AlterTable
+ALTER TABLE "Order" ADD COLUMN     "paymentMethod" TEXT NOT NULL DEFAULT 'COD',
+ADD COLUMN     "status" "OrderStatus" NOT NULL DEFAULT 'PENDING',
+ALTER COLUMN "paid" SET DEFAULT false;
