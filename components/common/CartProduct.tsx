@@ -12,53 +12,70 @@ const CartProduct = ({ item }: { item: NormalizedCartItem }) => {
   const [selectedSize, setSelectedSize] = useState(size);
 
   return (
-    <div className="flex flex-col md:flex-row justify-between gap-6 border-b pb-6">
-      {/* Left Side: Image and Info */}
-      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 flex-1 capitalize">
-        <div className="relative w-40 h-40 flex-shrink-0">
-          <Image src={image} alt={name} fill className="object-contain rounded-lg" />
-        </div>
+    <div className="flex flex-col lg:flex-row justify-between gap-8 border-b border-gray-200 pb-8">
+  {/* Left Side: Image and Info */}
+  <div className="flex flex-col sm:flex-row items-start gap-6 flex-1">
+    {/* Image Container */}
+    <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex-shrink-0 bg-gray-50 p-4 border border-gray-200">
+      <Image 
+        src={image} 
+        alt={name} 
+        fill 
+        className="object-contain" 
+      />
+    </div>
 
-        <div className="space-y-4 w-full sm:w-auto">
-          <h1 className="font-semibold text-lg sm:text-xl">{name}</h1>
+    {/* Product Details */}
+    <div className="space-y-4 flex-1 min-w-0">
+      <h1 className="font-medium text-xl text-gray-900 tracking-tight leading-tight">
+        {name}
+      </h1>
 
-          <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
-            <label htmlFor={`size-select-${productId}`} className="font-medium mb-1 sm:mb-0">
-              Choose size:
-            </label>
-            <select
-              id={`size-select-${productId}`}
-              name="size"
-              value={selectedSize}
-              onChange={(e) => setSelectedSize(e.target.value as ProductSizes)}
-              className="border rounded-md px-3 py-1 text-sm w-full sm:w-auto"
-            >
-              {sizes?.map((s) => (
-                <option value={s.name} key={s.id}>
-                  {s.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Side: Actions and Price */}
-      <div className="flex flex-col justify-between items-center space-y-6 min-w-[160px]">
-        <DeleteProduct currentQuantity={quantity} size={selectedSize} productId={productId} />
-
-        <div className="space-y-4 w-full">
-          <div className="quantity text-center">
-            <span className="text-sm text-neutral-600 block mb-1">Quantity</span>
-            <QuantityController quantity={quantity} size={selectedSize} productId={productId} />
-          </div>
-
-          <div className="price font-semibold py-1 px-3 border border-black text-center">
-            <span>MAD {Number(price)}</span>
-          </div>
-        </div>
+      {/* Size Selection */}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+        <label 
+          htmlFor={`size-select-${productId}`} 
+          className="text-sm font-medium text-gray-700 uppercase tracking-wide whitespace-nowrap"
+        >
+          Size:
+        </label>
+        <select
+          id={`size-select-${productId}`}
+          name="size"
+          value={selectedSize}
+          onChange={(e) => setSelectedSize(e.target.value as ProductSizes)}
+          className="border border-gray-300 rounded-none px-4 py-2 text-gray-900 bg-white focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all duration-200 text-sm min-w-[120px]"
+        >
+          {sizes?.map((s) => (
+            <option value={s.name} key={s.id}>
+              {s.name}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
+  </div>
+
+  {/* Right Side: Actions and Price */}
+  <div className="flex flex-col justify-between items-end space-y-6 min-w-[140px]">
+    {/* Delete Button */}
+    <DeleteProduct currentQuantity={quantity} size={selectedSize} productId={productId} />
+
+    {/* Quantity and Price */}
+    <div className="space-y-4 w-full">
+      {/* Quantity Controller */}
+      <div className="text-center space-y-2">
+        <span className="text-xs text-gray-600 uppercase tracking-wide font-medium">Quantity</span>
+        <QuantityController quantity={quantity} size={selectedSize} productId={productId} />
+      </div>
+
+      {/* Price */}
+      <div className="border border-gray-900 bg-white py-2 px-4 text-center">
+        <span className="font-bold text-lg text-black">MAD {Number(price)}</span>
+      </div>
+    </div>
+  </div>
+</div>
   );
 };
 

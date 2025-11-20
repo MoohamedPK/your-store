@@ -33,31 +33,33 @@ const QuantityController = ({ quantity, size, productId }: cartProps) => {
   };
 
   return (
-    <div className="border border-black rounded-full px-3 py-1 select-none w-max">
-      <div className="flex items-center justify-between space-x-3">
-        <button
-          onClick={() => handleChange(-1)}
-          className="bg-zinc-800 rounded-full text-white p-1 hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
-          disabled={isPending || quantity <= 1}
-          aria-label="Decrease quantity"
-          type="button"
-        >
-          <Minus size={16} />
-        </button>
+    <div className="border border-gray-400 rounded-none px-4 py-2 select-none w-max bg-white">
+  <div className="flex items-center justify-between space-x-4">
+    <button
+      onClick={() => handleChange(-1)}
+      className="bg-white border border-gray-400 rounded-none text-black p-1 hover:bg-black hover:text-white hover:border-black disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-black disabled:hover:border-gray-400 transition-all duration-200"
+      disabled={isPending || quantity <= 1}
+      aria-label="Decrease quantity"
+      type="button"
+    >
+      <Minus size={16} />
+    </button>
 
-        <span className="font-semibold min-w-[24px] text-center">{quantity}</span>
+    <span className="font-medium min-w-[28px] text-center text-gray-900 text-sm tracking-wide">
+      {quantity}
+    </span>
 
-        <button
-          onClick={() => handleChange(1)}
-          className="bg-zinc-800 rounded-full text-white p-1 hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
-          disabled={isPending}
-          aria-label="Increase quantity"
-          type="button"
-        >
-          <Plus size={16} />
-        </button>
-      </div>
-    </div>
+    <button
+      onClick={() => handleChange(1)}
+      className="bg-white border border-gray-400 rounded-none text-black p-1 hover:bg-black hover:text-white hover:border-black disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-black disabled:hover:border-gray-400 transition-all duration-200"
+      disabled={isPending}
+      aria-label="Increase quantity"
+      type="button"
+    >
+      <Plus size={16} />
+    </button>
+  </div>
+</div>
   );
 };
 

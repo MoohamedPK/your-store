@@ -10,8 +10,17 @@
 !.yarn/releases
 !.yarn/versions
 
+#others 
+/public
+/zod
+/prisma
+/lib
+/providers
+
+
 # testing
 /coverage
+/cypress
 
 # next.js
 /.next/

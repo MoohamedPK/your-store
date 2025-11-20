@@ -16,7 +16,7 @@ export const CartIcon = ({userCart, session}: {userCart: NormalizedCartItem[], s
 
     return (
         <Link href={"/cart"} className="cursor-pointer relative">
-            <ShoppingBasket/>
+            <ShoppingBasket className="text-white"/>
 
             {totalQuantity > 0 && (
                 <Ping/>

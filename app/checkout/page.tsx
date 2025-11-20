@@ -19,26 +19,34 @@ const Checkout = async () => {
   const total = subTotal ? subTotal + fees : 0;
 
   return (
-    <div className="container max-w-full px-4 py-8 bg-gray-400/55 min-h-screen">
-      <header className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold">Delivery Details</h1>
-      </header>
+    <div className="w-full px-4 sm:px-6 py-12 bg-white min-h-screen">
+  <div className="max-w-7xl mx-auto">
+    {/* Header */}
+    <header className="mb-12 border-b border-gray-200 pb-6">
+      <h1 className="text-3xl sm:text-4xl font-light text-gray-900 tracking-tight">Delivery Details</h1>
+    </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 place-items-start">
-        <div className="md:col-span-2 w-full">
-          <CheckoutForm
-            total={total}
-            fees={fees}
-            subTotal={subTotal}
-            cartItems={filteredCart}
-          />
-        </div>
+    {/* Content Grid */}
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+      {/* Checkout Form - Main Content */}
+      <div className="lg:col-span-2 w-full">
+        <CheckoutForm
+          total={total}
+          fees={fees}
+          subTotal={subTotal}
+          cartItems={filteredCart}
+        />
+      </div>
 
-        <div className="w-full">
+      {/* Order Summary - Sidebar */}
+      <div className="w-full lg:sticky lg:top-8">
+        <div className="border border-gray-200 bg-white p-6">
           <Subtotal subTotal={subTotal} total={total} fees={fees} />
         </div>
       </div>
     </div>
+  </div>
+</div>
   );
 };
 

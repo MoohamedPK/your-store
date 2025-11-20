@@ -74,115 +74,120 @@ const CheckoutForm = ({
 
   return (
     <div className="w-full col-span-2">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Name */}
-        <div className="flex flex-col space-y-1">
-          <label htmlFor="name" className="font-semibold">
-            Your Name
-          </label>
-          <input
-            id="name"
-            type="text"
-            className="border rounded-lg p-2 w-full sm:w-1/2"
-            {...register("name")}
-          />
-          {errors.name && (
-            <p className="text-xs text-red-500">{errors.name.message}</p>
-          )}
-        </div>
-
-        {/* Email */}
-        <div className="flex flex-col space-y-1">
-          <label htmlFor="email" className="font-semibold">
-            Your Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            className="border rounded-lg p-2 w-full sm:w-1/2"
-            {...register("email")}
-          />
-          {errors.email && (
-            <p className="text-xs text-red-500">{errors.email.message}</p>
-          )}
-        </div>
-
-        {/* City */}
-        <div className="flex flex-col space-y-1">
-          <label htmlFor="city" className="font-semibold">
-            City
-          </label>
-          <input
-            id="city"
-            type="text"
-            className="border rounded-lg p-2 w-full sm:w-1/2"
-            {...register("city")}
-          />
-          {errors.city && (
-            <p className="text-xs text-red-500">{errors.city.message}</p>
-          )}
-        </div>
-
-        {/* Address */}
-        <div className="flex flex-col space-y-1">
-          <label htmlFor="address" className="font-semibold">
-            Address
-          </label>
-          <input
-            id="address"
-            type="text"
-            className="border rounded-lg p-2 w-full sm:w-1/2"
-            {...register("address")}
-          />
-          {errors.address && (
-            <p className="text-xs text-red-500">{errors.address.message}</p>
-          )}
-        </div>
-
-        {/* Phone */}
-        <div className="flex flex-col space-y-1">
-          <label htmlFor="phone" className="font-semibold">
-            Phone Number
-          </label>
-          <input
-            id="phone"
-            type="tel"
-            className="border rounded-lg p-2 w-full sm:w-1/2"
-            {...register("phone")}
-          />
-          {errors.phone && (
-            <p className="text-xs text-red-500">{errors.phone.message}</p>
-          )}
-        </div>
-
-        {/* Payment Method */}
-        <div className="flex flex-col space-y-2">
-          <label className="font-semibold">Payment Method</label>
-          <div className="border w-full sm:w-1/2 flex items-center py-6 px-3 rounded-lg space-x-4">
-            <input
-              type="radio"
-              name="paymentMethod"
-              checked
-              readOnly
-              className="w-5 h-5"
-              aria-label="Cash On Delivery"
-            />
-            <span className="font-medium">
-              COD <span className="text-xs font-semibold">(Cash On Delivery)</span>
-            </span>
-          </div>
-        </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="flex justify-center w-full sm:w-1/2 bg-black text-white py-2 rounded-lg button-hover cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
-        >
-          {isLoading ? <Spinner /> : <span>Confirm Order</span>}
-        </button>
-      </form>
+  <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+    {/* Name */}
+    <div className="flex flex-col space-y-2">
+      <label htmlFor="name" className="text-sm font-medium text-gray-900 uppercase tracking-wide">
+        Full Name
+      </label>
+      <input
+        id="name"
+        type="text"
+        className="border border-gray-300 rounded-none p-3 w-full sm:w-2/3 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all duration-200"
+        {...register("name")}
+      />
+      {errors.name && (
+        <p className="text-xs text-red-600 font-medium">{errors.name.message}</p>
+      )}
     </div>
+
+    {/* Email */}
+    <div className="flex flex-col space-y-2">
+      <label htmlFor="email" className="text-sm font-medium text-gray-900 uppercase tracking-wide">
+        Email Address
+      </label>
+      <input
+        id="email"
+        type="email"
+        className="border border-gray-300 rounded-none p-3 w-full sm:w-2/3 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all duration-200"
+        {...register("email")}
+      />
+      {errors.email && (
+        <p className="text-xs text-red-600 font-medium">{errors.email.message}</p>
+      )}
+    </div>
+
+    {/* City */}
+    <div className="flex flex-col space-y-2">
+      <label htmlFor="city" className="text-sm font-medium text-gray-900 uppercase tracking-wide">
+        City
+      </label>
+      <input
+        id="city"
+        type="text"
+        className="border border-gray-300 rounded-none p-3 w-full sm:w-2/3 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all duration-200"
+        {...register("city")}
+      />
+      {errors.city && (
+        <p className="text-xs text-red-600 font-medium">{errors.city.message}</p>
+      )}
+    </div>
+
+    {/* Address */}
+    <div className="flex flex-col space-y-2">
+      <label htmlFor="address" className="text-sm font-medium text-gray-900 uppercase tracking-wide">
+        Delivery Address
+      </label>
+      <input
+        id="address"
+        type="text"
+        className="border border-gray-300 rounded-none p-3 w-full sm:w-2/3 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all duration-200"
+        {...register("address")}
+      />
+      {errors.address && (
+        <p className="text-xs text-red-600 font-medium">{errors.address.message}</p>
+      )}
+    </div>
+
+    {/* Phone */}
+    <div className="flex flex-col space-y-2">
+      <label htmlFor="phone" className="text-sm font-medium text-gray-900 uppercase tracking-wide">
+        Phone Number
+      </label>
+      <input
+        id="phone"
+        type="tel"
+        className="border border-gray-300 rounded-none p-3 w-full sm:w-2/3 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all duration-200"
+        {...register("phone")}
+      />
+      {errors.phone && (
+        <p className="text-xs text-red-600 font-medium">{errors.phone.message}</p>
+      )}
+    </div>
+
+    {/* Payment Method */}
+    <div className="flex flex-col space-y-3">
+      <label className="text-sm font-medium text-gray-900 uppercase tracking-wide">
+        Payment Method
+      </label>
+      <div className="border border-gray-300 w-full sm:w-2/3 flex items-center p-4 rounded-none bg-white">
+        <input
+          type="radio"
+          name="paymentMethod"
+          checked
+          readOnly
+          className="w-4 h-4 text-black focus:ring-black border-gray-300"
+          aria-label="Cash On Delivery"
+        />
+        <span className="font-medium text-gray-900 ml-3">
+          Cash On Delivery
+          <span className="text-xs text-gray-600 font-normal block mt-1">Pay when you receive your order</span>
+        </span>
+      </div>
+    </div>
+
+    {/* Submit Button */}
+    <div className="pt-4">
+      <button
+        type="submit"
+        disabled={isLoading}
+        className="flex justify-center items-center w-full sm:w-2/3 bg-black text-white py-4 rounded-none font-medium uppercase tracking-wide hover:bg-gray-800 transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-black border border-black"
+      >
+        {isLoading ? <Spinner /> : <span>Confirm Order</span>}
+      </button>
+    </div>
+  </form>
+</div>
   );
 };
 

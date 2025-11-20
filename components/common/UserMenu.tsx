@@ -1,7 +1,7 @@
 "use client";
 
 import { signOut, useSession } from "next-auth/react";
-import { User } from "lucide-react";
+import { LogIn, LogOut, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
@@ -59,7 +59,7 @@ const UserMenu = () => {
             aria-label="User menu"
           >
             {!session.user.image ? (
-              <User size={28} />
+              <User size={28} className="text-white"/>
             ) : (
               <Image
                 src={session.user.image}
@@ -99,11 +99,12 @@ const UserMenu = () => {
               </Link>
               )}
               <button
-                className="bg-zinc-800 py-2 rounded-lg hover:bg-zinc-600 transition"
+                className="bg-zinc-800 py-2 rounded-lg hover:bg-zinc-600 transition flex items-center justify-center space-x-4"
                 onClick={handleSignOut}
                 role="menuitem"
               >
-                Logout
+                <p>Logout</p>
+                <LogOut/>
               </button>
             </div>
           )}
@@ -113,7 +114,7 @@ const UserMenu = () => {
           href="/login"
           className="text-white font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded"
         >
-          Login
+          <LogIn/>
         </Link>
       )}
     </div>

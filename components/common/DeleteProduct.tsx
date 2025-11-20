@@ -32,7 +32,7 @@ const DeleteProduct = ({productId, size, currentQuantity}: {productId: string, s
       <button
       disabled={isPending}
       onClick={handleDelete}
-      className="cursor-pointer text-red-500 button-hover">
+      className="cursor-pointer button-hover">
         <Trash2 size={22}/>
       </button> 
   )

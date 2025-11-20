@@ -21,54 +21,87 @@ const ClientProductDetails = ({ product }: Props) => {
   };
 
   return (
-    <main className="min-h-screen py-8">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center px-4">
-        {/* Image Section */}
-        <div className="left">
-          <Image
-            src={product?.image || "/placeholder.png"}
-            alt={product?.name || "product image"}
-            width={500}
-            height={500}
-            className="object-contain rounded-md"
-            priority
-          />
+    <main className="min-h-screen bg-white py-12">
+  <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start px-4 sm:px-6">
+    {/* Image Section - Enhanced */}
+    <div className="left">
+      <div className="bg-gray-50 p-8 rounded-none border border-gray-200 hover:shadow-lg transition-shadow duration-300">
+        <Image
+          src={product?.image || "/placeholder.png"}
+          alt={product?.name || "product image"}
+          width={600}
+          height={600}
+          className="object-contain w-full h-auto aspect-square"
+          priority
+        />
+      </div>
+    </div>
+
+    {/* Details Section - Refined */}
+    <div className="right space-y-8 lg:space-y-10">
+      {/* Product Title */}
+      <div className="border-b border-gray-200 pb-6">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-gray-900 leading-tight">
+          {product?.name}
+        </h1>
+      </div>
+
+      {/* Description */}
+      <div className="space-y-4">
+        <p className="text-lg leading-relaxed text-gray-700 font-normal tracking-wide">
+          {product?.description}
+        </p>
+      </div>
+
+      {/* Price and Add to Cart - Enhanced Layout */}
+      <div className="space-y-6">
+        {/* Price Display */}
+        <div className="flex items-center justify-between py-4 border-y border-gray-200">
+          <span className="text-2xl md:text-3xl font-bold text-black tracking-tight">
+            {currancyFormatter(Number(product.price))}
+          </span>
+          <div className="w-3 h-3 bg-black rounded-full"></div>
         </div>
 
-        {/* Details Section */}
-        <div className="right space-y-8">
-          <h1 className="text-4xl md:text-5xl font-semibold">{product?.name}</h1>
-          <p className="leading-relaxed font-medium text-gray-700">{product?.description}</p>
-
-          <div className="flex justify-between items-center space-x-4">
-            <span className="border border-black px-6 py-2 font-bold text-lg text-black rounded-md">
-              {currancyFormatter(Number(product.price))}
-            </span>
-
-            <AddToCartBtn productId={product.id} quantity={1} size={selectedSize} />
-          </div>
-
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mt-5">
-            <label htmlFor="size-select" className="text-gray-600 text-sm font-medium">
-              Choose size
+        {/* Size Selection */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <label htmlFor="size-select" className="text-sm font-medium text-gray-900 uppercase tracking-wide">
+              Select Size
             </label>
-            <select
-              id="size-select"
-              name="size"
-              onChange={handleSize}
-              value={selectedSize}
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
-              {product?.sizes.map((size: Size) => (
-                <option value={size.name} key={size.id}>
-                  {size.name}
-                </option>
-              ))}
-            </select>
+            <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
           </div>
+          <select
+            id="size-select"
+            name="size"
+            onChange={handleSize}
+            value={selectedSize}
+            className="w-full border border-gray-300 bg-white rounded-none px-4 py-3 text-gray-900 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all duration-200 appearance-none cursor-pointer"
+          >
+            {product?.sizes.map((size: Size) => (
+              <option value={size.name} key={size.id} className="py-2">
+                {size.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Add to Cart Button */}
+        <div className="pt-4">
+          <AddToCartBtn productId={product.id} quantity={1} size={selectedSize} />
         </div>
       </div>
-    </main>
+
+      {/* Additional Info */}
+      <div className="pt-6 border-t border-gray-200">
+        <div className="flex items-center space-x-2 text-sm text-gray-600">
+          <span>✓</span>
+          <span>Free shipping on orders over $50</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
   );
 };
 

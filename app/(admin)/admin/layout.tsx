@@ -10,15 +10,17 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className="relative min-h-screen">
-      {/* Sidebar: fixed on desktop, toggled on mobile */}
-      <AdminNavBar />
+    <div className="min-h-screen bg-white">
+  {/* Sidebar: fixed on desktop, toggled on mobile */}
+  <AdminNavBar />
 
-      {/* Main content */}
-      <main className="p-4 pt-16 md:ml-64">
-        {children}
-      </main>
+  {/* Main content */}
+  <main className="p-6 md:ml-64 pt-20 md:pt-6">
+    <div className="max-w-7xl mx-auto">
+      {children}
     </div>
+  </main>
+</div>
   );
 };
 

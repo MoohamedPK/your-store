@@ -33,15 +33,23 @@ const HeroText = () => {
   }, []) // Empty dependency array means this runs once after mount
 
   return (
-    <main className="w-full h-screen flex justify-center items-center main-bg">
-        <div className="text-white/70 px-5 space-y-8">
-            <h1 ref={textRef} className="text-5xl md:text-7xl lg:text-9xl ">Modern Finds, Timeless Taste — Shop with Intention</h1>
-            <p>Explore a curated selection of products that blend style, function, and simplicity, all in one seamless experience.</p>
+    <main className="h-screen flex items-center justify-center main-bg relative">
+      <div className="branding_video absolute">
+        <video src={"/branding-video (1).mp4"} autoPlay
+            loop
+            muted
+            playsInline
+            className="size-full object-cover"/>
+      </div>
+        <div className="text-white/70 px-5 space-y-8 text-center md:text-start z-30">
+            <h1 ref={textRef} className="text-5xl md:text-6xl lg:text-9xl bg-clip-text w-300">Effortless style, delivered.</h1>
+            <p className="">Discover our latest collection of ethically sourced apparel and accessories.</p>
 
             <Link href={'/products'}>
-              <button className=" text-white/70 flex items-center text-xl px-8 py-3 space-x-5 group bg-zinc-900 cursor-pointer shadow button-hover">
-                  <span>Shop Now</span>
-                  <ArrowUpRight className="size-8 opacity-0 group-hover:opacity-100 transition-all duration-300"/>
+              <button className="border border-white/60 flex items-center space-x-4 px-6 py-3 cursor-pointer button-hover group relative">
+                  <span className="absolute top-0 left-0 size-full bg-white/60 scale-x-0 group-hover:scale-x-100 transition-all duration-300"></span>
+                  <p className="group-hover:text-black z-30 font-semibold">Shop the Look </p>
+                  <ArrowUpRight size={26} className="opacity-0 group-hover:opacity-100 group-hover:text-black z-30"/>
               </button>
             </Link>
         </div>

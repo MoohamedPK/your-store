@@ -9,7 +9,7 @@ const ProductsGrid = async ({ category, query }: { category: string; query: stri
     <div className="mt-20">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
         {products.length === 0 ? (
-          <p className="col-span-full text-center text-lg">No Products Found</p>
+          <p className="col-span-full text-center text-lg">No Products</p>
         ) : (
           products.map((product) => (
             <Product product={product} key={product.id} />
