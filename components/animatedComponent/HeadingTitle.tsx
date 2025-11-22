@@ -35,7 +35,7 @@ const HeadingTitle = ({title}: {title: string}) => {
   }, [])
 
   return (
-      <div className="text-center pt-32 text-3xl font-bold">
+      <div className="text-3xl md:text-4xl font-light text-center text-gray-900 tracking-tight mb-4">
           <h1 ref={titleRef}>{title}</h1>
       </div>
   )

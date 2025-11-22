@@ -7,7 +7,7 @@ const Featured = async() => {
   const featuredProds = await featuredProducts()
   
   return (
-    <main className="h-[130dvh] relative">
+    <main className=" relative">
       
       <HeadingTitle title="Featured Products"/>
       

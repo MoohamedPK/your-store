@@ -19,41 +19,105 @@ const HeroText = () => {
       
       gsap.from(split.words, { // Use split.chars instead of split.lines
         y: 100,
-        // x:-100,
         duration: 2,
         autoAlpha: 0,
         stagger: 0.05
       })
-
-      // Cleanup function to revert the split when component unmounts
+      
       return () => {
         split.revert()
       }
     }
-  }, []) // Empty dependency array means this runs once after mount
+  }, [])
 
   return (
-    <main className="h-screen flex items-center justify-center main-bg relative">
-      <div className="branding_video absolute">
-        <video src={"/branding-video (1).mp4"} autoPlay
-            loop
-            muted
-            playsInline
-            className="size-full object-cover"/>
-      </div>
-        <div className="text-white/70 px-5 space-y-8 text-center md:text-start z-30">
-            <h1 ref={textRef} className="text-5xl md:text-6xl lg:text-9xl bg-clip-text w-300">Effortless style, delivered.</h1>
-            <p className="">Discover our latest collection of ethically sourced apparel and accessories.</p>
+    <main className="relative flex items-center justify-center overflow-hidden min-h-screen">
+  {/* Background Video */}
+  <div className="absolute inset-0 w-full h-full">
+    <video
+      src="/branding-video (1).mp4"
+      autoPlay
+      loop
+      muted
+      playsInline
+      className="w-full h-full object-cover"
+    />
+  </div>
 
-            <Link href={'/products'}>
-              <button className="border border-white/60 flex items-center space-x-4 px-6 py-3 cursor-pointer button-hover group relative">
-                  <span className="absolute top-0 left-0 size-full bg-white/60 scale-x-0 group-hover:scale-x-100 transition-all duration-300"></span>
-                  <p className="group-hover:text-black z-30 font-semibold">Shop the Look </p>
-                  <ArrowUpRight size={26} className="opacity-0 group-hover:opacity-100 group-hover:text-black z-30"/>
-              </button>
-            </Link>
-        </div>
-    </main>
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-black/30 z-10"></div>
+
+  {/* Content */}
+  <div className="relative z-20 text-white/80 text-center w-full max-w-5xl px-4 sm:px-8 space-y-6 sm:space-y-8 lg:space-y-10 mx-auto">
+
+    {/* Title */}
+    <h1
+      ref={textRef}
+      className="
+        font-light tracking-tight leading-[1.1]
+        text-[clamp(2rem,6vw,5rem)]
+        sm:text-[clamp(2.5rem,5vw,6rem)]
+        md:text-[clamp(3rem,5vw,7rem)]
+      "
+    >
+      Effortless style, delivered.
+    </h1>
+
+    {/* Subtitle */}
+    <p className="
+      font-light tracking-wide leading-relaxed mx-auto
+      text-[clamp(0.9rem,2.2vw,1.3rem)]
+      max-w-xl
+    ">
+      Discover our latest collection of ethically sourced apparel and accessories.
+    </p>
+
+    {/* CTA Button */}
+    <div className="pt-4 sm:pt-6">
+      <Link href="/products">
+        <button
+          className="
+            relative mx-auto flex items-center justify-center
+            border border-white/60 overflow-hidden group
+            px-6 py-3 sm:px-8 sm:py-4
+          "
+        >
+          {/* Hover background */}
+          <span
+            className="
+              absolute inset-0 bg-white/60 scale-x-0
+              group-hover:scale-x-100 origin-left
+              transition-transform duration-300
+            "
+          />
+
+          {/* Text */}
+          <p
+            className="
+              relative z-20 font-medium tracking-wide
+              text-sm sm:text-base group-hover:text-black
+              transition-colors duration-300
+            "
+          >
+            Shop the Look
+          </p>
+
+          {/* Arrow */}
+          <ArrowUpRight
+            className="
+              relative z-20 ml-3 opacity-0
+              group-hover:opacity-100 group-hover:text-black
+              transition-all duration-300
+              transform group-hover:translate-x-1 group-hover:-translate-y-1
+            "
+            size={20}
+          />
+        </button>
+      </Link>
+    </div>
+  </div>
+</main>
+
   )
 }
 

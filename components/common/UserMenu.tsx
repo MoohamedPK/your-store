@@ -53,7 +53,7 @@ const UserMenu = () => {
         <>
           <button
             onClick={() => setDropDown((prev) => !prev)}
-            className="flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-full"
+            className="flex items-center rounded-full"
             aria-haspopup="true"
             aria-expanded={dropDown}
             aria-label="User menu"
