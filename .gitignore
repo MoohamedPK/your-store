@@ -10,13 +10,6 @@
 !.yarn/releases
 !.yarn/versions
 
-#others 
-/public
-/zod
-/prisma
-/lib
-/providers
-
 
 # testing
 /coverage

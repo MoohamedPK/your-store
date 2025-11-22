@@ -154,16 +154,3 @@ The database schema is defined in `prisma/schema.prisma`. Key models include:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Authors
-
-- Your Name - Initial work
-
-## 🙏 Acknowledgments
-
-- Next.js team for the amazing framework
-- Prisma team for the database toolkit
-- All contributors who have helped shape this project
